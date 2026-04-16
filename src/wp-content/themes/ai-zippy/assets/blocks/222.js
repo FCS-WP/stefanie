@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkai_zippy=globalThis.webpackChunkai_zippy||[]).push([[222],{222(i){i.exports=import("https://cdn.jsdelivr.net/npm/swiper@11/modules/index.min.mjs")}}]);
