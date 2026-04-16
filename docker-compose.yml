@@ -1,12 +1,14 @@
-version: "4.0"
+version: "5.0"
 services:
   wordpress:
     container_name: ${PROJECT_ID}
-    image: wordpress:6.6
+    image: wordpress:6.8
     user: www-data
     volumes:
       # Mount volumes themes and plugin
       - ./src/.htaccess:/var/www/html/.htaccess
+      - ./.env:/var/www/html/.env
+
       - ./src/wp-content/themes/:/var/www/html/wp-content/themes
       - ./src/wp-content/themes/index.php:/var/www/html/wp-content/themes/index.php
       - ./src/wp-content/themes/index.php:/var/www/html/wp-content/plugins/index.php
@@ -17,6 +19,7 @@ services:
       - /var/www/html/wp-content/themes/twentytwentytwo/
       - /var/www/html/wp-content/themes/twentytwentythree/
       - /var/www/html/wp-content/themes/twentytwentyfour/
+      - /var/www/html/wp-content/themes/twentytwentyfive/
       # Exclude plugins default
       - /var/www/html/wp-content/plugins/akismet
       - /var/www/html/wp-content/plugins/hello.php
