@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/home-press",
+	"version": "1.0.0",
+	"title": "Home - Press",
+	"category": "ai-zippy",
+	"icon": "megaphone",
+	"description": "Homepage press logo section with editable background image.",
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"heading": { "type": "string", "default": "A Little Shop That Made the Headlines." },
+		"backgroundImageId": { "type": "number", "default": 0 },
+		"backgroundImageUrl": { "type": "string", "default": "" },
+		"backgroundImageAlt": { "type": "string", "default": "" },
+		"logos": {
+			"type": "array",
+			"default": [
+				{ "text": "ST", "imageId": 0, "imageUrl": "", "imageAlt": "", "url": "#" },
+				{ "text": "cna<br><span>LIFESTYLE</span>", "imageId": 0, "imageUrl": "", "imageAlt": "", "url": "#" },
+				{ "text": "her<br>world", "imageId": 0, "imageUrl": "", "imageAlt": "", "url": "#" },
+				{ "text": "YOUNG<br>PARENTS", "imageId": 0, "imageUrl": "", "imageAlt": "", "url": "#" }
+			]
+		},
+		"paddingTop": { "type": "number", "default": 86 },
+		"paddingBottom": { "type": "number", "default": 0 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 }
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

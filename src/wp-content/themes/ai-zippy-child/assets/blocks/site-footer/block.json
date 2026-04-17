@@ -1,0 +1,261 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ai-zippy-child/site-footer",
+  "version": "1.0.0",
+  "title": "Site Footer",
+  "category": "ai-zippy",
+  "icon": "editor-table",
+  "description": "Premium blue footer with brand, shop links, info links, contact details, and legal links.",
+  "keywords": [
+    "footer",
+    "navigation",
+    "contact",
+    "links"
+  ],
+  "supports": {
+    "html": false,
+    "align": [
+      "full"
+    ]
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "logoBefore": {
+      "type": "string",
+      "default": "Tom"
+    },
+    "logoAccent": {
+      "type": "string",
+      "default": "&"
+    },
+    "logoAfter": {
+      "type": "string",
+      "default": "Stefanie"
+    },
+    "logoUrl": {
+      "type": "string",
+      "default": "/"
+    },
+    "logoImageId": {
+      "type": "number",
+      "default": 0
+    },
+    "logoImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "logoImageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "logoImageWidth": {
+      "type": "number",
+      "default": 370
+    },
+    "logoImageMinHeight": {
+      "type": "number",
+      "default": 58
+    },
+    "logoImageObjectFit": {
+      "type": "string",
+      "default": "contain"
+    },
+    "logoImageObjectPosition": {
+      "type": "string",
+      "default": "left center"
+    },
+    "taglineLineOne": {
+      "type": "string",
+      "default": "Kids Toy Store SG"
+    },
+    "taglineLineTwo": {
+      "type": "string",
+      "default": "Trend-forward gifts"
+    },
+    "email": {
+      "type": "string",
+      "default": "tomnstefanie@gmail.com"
+    },
+    "shopMenuId": {
+      "type": "number",
+      "default": 0
+    },
+    "shopTitle": {
+      "type": "string",
+      "default": "Shop"
+    },
+    "shopOneLabel": {
+      "type": "string",
+      "default": "All Products"
+    },
+    "shopOneUrl": {
+      "type": "string",
+      "default": "/shop"
+    },
+    "shopTwoLabel": {
+      "type": "string",
+      "default": "Shop by Occasion"
+    },
+    "shopTwoUrl": {
+      "type": "string",
+      "default": "/shop"
+    },
+    "shopThreeLabel": {
+      "type": "string",
+      "default": "Shop by Category"
+    },
+    "shopThreeUrl": {
+      "type": "string",
+      "default": "/shop"
+    },
+    "shopFourLabel": {
+      "type": "string",
+      "default": "Shop by Age"
+    },
+    "shopFourUrl": {
+      "type": "string",
+      "default": "/shop"
+    },
+    "shopFiveLabel": {
+      "type": "string",
+      "default": "New In"
+    },
+    "shopFiveUrl": {
+      "type": "string",
+      "default": "/shop"
+    },
+    "infoMenuId": {
+      "type": "number",
+      "default": 0
+    },
+    "infoTitle": {
+      "type": "string",
+      "default": "Info"
+    },
+    "infoOneLabel": {
+      "type": "string",
+      "default": "About Us"
+    },
+    "infoOneUrl": {
+      "type": "string",
+      "default": "/about-us"
+    },
+    "infoTwoLabel": {
+      "type": "string",
+      "default": "Blog"
+    },
+    "infoTwoUrl": {
+      "type": "string",
+      "default": "/blog"
+    },
+    "infoThreeLabel": {
+      "type": "string",
+      "default": "Store Locations"
+    },
+    "infoThreeUrl": {
+      "type": "string",
+      "default": "/store-locations"
+    },
+    "infoFourLabel": {
+      "type": "string",
+      "default": "FAQs"
+    },
+    "infoFourUrl": {
+      "type": "string",
+      "default": "/faqs"
+    },
+    "infoFiveLabel": {
+      "type": "string",
+      "default": "Returns Policy"
+    },
+    "infoFiveUrl": {
+      "type": "string",
+      "default": "/returns-policy"
+    },
+    "infoSixLabel": {
+      "type": "string",
+      "default": "Terms & Conditions"
+    },
+    "infoSixUrl": {
+      "type": "string",
+      "default": "/terms-conditions"
+    },
+    "contactTitle": {
+      "type": "string",
+      "default": "Contact"
+    },
+    "phoneLabel": {
+      "type": "string",
+      "default": "WhatsApp: 8086 3940"
+    },
+    "phoneUrl": {
+      "type": "string",
+      "default": "tel:80863940"
+    },
+    "emailLabel": {
+      "type": "string",
+      "default": "tomnstefanie@gmail.com"
+    },
+    "emailUrl": {
+      "type": "string",
+      "default": "mailto:tomnstefanie@gmail.com"
+    },
+    "storeLabel": {
+      "type": "string",
+      "default": "Find a Store"
+    },
+    "storeUrl": {
+      "type": "string",
+      "default": "/store-locations"
+    },
+    "paymentLabel": {
+      "type": "string",
+      "default": "PayNow / Credit Card"
+    },
+    "paymentUrl": {
+      "type": "string",
+      "default": "/payment"
+    },
+    "copyright": {
+      "type": "string",
+      "default": "© 2026 Tom & Stefanie Corporation · Singapore · All rights reserved"
+    },
+    "privacyLabel": {
+      "type": "string",
+      "default": "Privacy Policy"
+    },
+    "privacyUrl": {
+      "type": "string",
+      "default": "/privacy-policy"
+    },
+    "legalMenuId": {
+      "type": "number",
+      "default": 0
+    },
+    "termsLabel": {
+      "type": "string",
+      "default": "Terms"
+    },
+    "termsUrl": {
+      "type": "string",
+      "default": "/terms-conditions"
+    },
+    "sitemapLabel": {
+      "type": "string",
+      "default": "Sitemap"
+    },
+    "sitemapUrl": {
+      "type": "string",
+      "default": "/sitemap"
+    }
+  },
+  "textdomain": "ai-zippy-child",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

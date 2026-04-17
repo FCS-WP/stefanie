@@ -9,21 +9,21 @@
     object-fit: cover;
     border-radius: 6px;
     margin-bottom: 8px;
-    border: 1px solid var(--wp--preset--color--border, #ddd5c8);
+    border: 1px solid var(--wp--preset--color--border, #e7e1d8);
 
     &--empty {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--wp--preset--color--warm-white, #f4f0e8);
-      color: var(--wp--preset--color--text-muted, #8b7060);
+      background: var(--wp--preset--color--warm-cream, #fffbf4);
+      color: var(--wp--preset--color--text-muted, #6f6f77);
       font-size: 12px;
     }
   }
 
   .cts-editor__note {
     margin: 14px 0 0;
-    color: var(--wp--preset--color--text-muted, #8b7060);
+    color: var(--wp--preset--color--text-muted, #6f6f77);
     font-size: 12px;
   }
 
@@ -46,7 +46,7 @@
     span {
       display: block;
       margin-bottom: 6px;
-      color: var(--wp--preset--color--bark, #3d2b1f);
+      color: var(--wp--preset--color--deep-ink, #2c3e7a);
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 2px;
@@ -55,7 +55,7 @@
 
     div {
       min-height: 46px;
-      border: 1px solid var(--wp--preset--color--border, #ddd5c8);
+      border: 1px solid var(--wp--preset--color--border, #e7e1d8);
       background: white;
     }
   }
@@ -69,8 +69,8 @@
     align-items: center;
     justify-content: center;
     min-height: 46px;
-    background: var(--wp--preset--color--rust, #c17a54);
-    color: white;
+    background: var(--wp--preset--color--sunshine, #ffe66d);
+    color: var(--wp--preset--color--deep-ink, #2c3e7a);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -78,7 +78,7 @@
   }
 
   .block-editor-rich-text__editable:focus {
-    outline: 2px solid color-mix(in srgb, var(--wp--preset--color--rust, #c17a54) 30%, transparent);
+    outline: 2px solid color-mix(in srgb, var(--wp--preset--color--peach-pop, #ff8c69) 30%, transparent);
     outline-offset: 2px;
     border-radius: 2px;
   }

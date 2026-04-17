@@ -1,0 +1,36 @@
+.wp-block-ai-zippy-child-home-occasions {
+  .block-editor-rich-text__editable {
+    color: inherit;
+  }
+}
+
+.home-occasions-editor__group {
+  border-top: 1px solid #e7e1d8;
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.home-occasions-editor__media {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.home-occasions-editor__preview,
+.home-occasions-editor__empty {
+  aspect-ratio: 16 / 9;
+  background: #f6f2eb;
+  border: 1px solid #e7e1d8;
+  border-radius: 4px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.home-occasions-editor__empty {
+  align-items: center;
+  color: #6b7280;
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
+}

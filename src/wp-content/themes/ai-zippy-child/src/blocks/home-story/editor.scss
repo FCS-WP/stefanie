@@ -1,0 +1,9 @@
+.home-story-editor__media img,
+.home-story-editor__media div {
+  aspect-ratio: 16 / 9;
+  background: #f6f2eb;
+  border: 1px solid #e7e1d8;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}

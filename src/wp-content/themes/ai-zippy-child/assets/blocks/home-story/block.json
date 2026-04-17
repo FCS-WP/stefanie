@@ -1,0 +1,84 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ai-zippy-child/home-story",
+  "version": "1.0.0",
+  "title": "Home - Story",
+  "category": "ai-zippy",
+  "icon": "format-image",
+  "description": "Homepage story panel with editable background image and CTA.",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "wide"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Come in for a look.<br>Leave with the perfect gift."
+    },
+    "description": {
+      "type": "string",
+      "default": "Tom & Stefanie is a curated destination for fun, thoughtful, and trend-forward toys & giftables - chosen to spark a reaction in every kid."
+    },
+    "pointOne": {
+      "type": "string",
+      "default": "Curated with care<br>every item hand-picked"
+    },
+    "pointTwo": {
+      "type": "string",
+      "default": "Affordable, fun, and<br>always on-trend"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "OUR STORY"
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": "/about-us"
+    },
+    "backgroundImageId": {
+      "type": "number",
+      "default": 0
+    },
+    "backgroundImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundImageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "paddingTop": {
+      "type": "number",
+      "default": 86
+    },
+    "paddingBottom": {
+      "type": "number",
+      "default": 72
+    },
+    "marginTop": {
+      "type": "number",
+      "default": 0
+    },
+    "marginBottom": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "textdomain": "ai-zippy-child",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

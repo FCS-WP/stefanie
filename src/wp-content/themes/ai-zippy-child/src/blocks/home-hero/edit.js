@@ -1,253 +1,193 @@
 import {
 	useBlockProps,
 	InspectorControls,
-	MediaUpload,
-	MediaUploadCheck,
 	RichText,
 	URLInputButton,
+	MediaUpload,
+	MediaUploadCheck,
 } from "@wordpress/block-editor";
-import { PanelBody, Button, TextControl } from "@wordpress/components";
+import {
+	Button,
+	PanelBody,
+	RangeControl,
+	SelectControl,
+	TextControl,
+} from "@wordpress/components";
 
-const TILE_CONFIG = [
-	{ key: "Teak", attrId: "tileTeakId", attrUrl: "tileTeakUrl", labelAttr: "labelTeak" },
-	{ key: "Willow", attrId: "tileWillowId", attrUrl: "tileWillowUrl", labelAttr: "labelWillow" },
-	{ key: "Walnut", attrId: "tileWalnutId", attrUrl: "tileWalnutUrl", labelAttr: "labelWalnut" },
-	{ key: "Maple", attrId: "tileMapleId", attrUrl: "tileMapleUrl", labelAttr: "labelMaple" },
+const OBJECT_FIT_OPTIONS = [
+	{ label: "Cover", value: "cover" },
+	{ label: "Contain", value: "contain" },
+	{ label: "Fill", value: "fill" },
+	{ label: "Scale Down", value: "scale-down" },
 ];
 
-function TilePicker({ title, imageId, imageUrl, onSelect, onRemove }) {
-	return (
-		<MediaUploadCheck>
-			<MediaUpload
-				onSelect={onSelect}
-				allowedTypes={["image"]}
-				value={imageId}
-				render={({ open }) => (
-					<div className="hh-editor__picker">
-						{imageUrl ? (
-							<img src={imageUrl} alt="" className="hh-editor__thumb" />
-						) : (
-							<div className="hh-editor__thumb hh-editor__thumb--empty">No image selected</div>
-						)}
-						<Button variant="secondary" onClick={open}>
-							{imageUrl ? `Replace ${title}` : `Select ${title}`}
-						</Button>
-						{imageUrl && (
-							<Button variant="link" isDestructive onClick={onRemove}>
-								Remove
-							</Button>
-						)}
-					</div>
-				)}
-			/>
-		</MediaUploadCheck>
-	);
-}
+const OBJECT_POSITION_OPTIONS = [
+	{ label: "Center", value: "center center" },
+	{ label: "Left Center", value: "left center" },
+	{ label: "Right Center", value: "right center" },
+	{ label: "Top Center", value: "center top" },
+	{ label: "Bottom Center", value: "center bottom" },
+];
 
 export default function Edit({ attributes, setAttributes }) {
-	const blockProps = useBlockProps({ className: "hh" });
-	const {
-		eyebrow,
-		heading,
-		description,
-		primaryBtnText,
-		primaryBtnUrl,
-		secondaryBtnText,
-		secondaryBtnUrl,
-		statOneValue,
-		statOneLabel,
-		statTwoValue,
-		statTwoLabel,
-		statThreeValue,
-		statThreeLabel,
-		tileTeakId,
-		tileTeakUrl,
-		tileWillowId,
-		tileWillowUrl,
-		tileWalnutId,
-		tileWalnutUrl,
-		tileMapleId,
-		tileMapleUrl,
-		labelTeak,
-		labelWillow,
-		labelWalnut,
-		labelMaple,
-		locationTitle,
-		locationSubtitle,
-	} = attributes;
-
-	const tiles = [tileTeakUrl, tileWillowUrl, tileWalnutUrl, tileMapleUrl];
+	const blockProps = useBlockProps({
+		className: "home-hero",
+		style: {
+			"--home-hero-min-height": `${attributes.minHeight || 850}px`,
+			"--home-hero-overlay-opacity": `${(attributes.overlayOpacity ?? 48) / 100}`,
+			"--home-hero-image-fit": attributes.imageObjectFit || "cover",
+			"--home-hero-image-position": attributes.imageObjectPosition || "center center",
+		},
+	});
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title="Buttons" initialOpen={true}>
+				<PanelBody title="Background Image" initialOpen={true}>
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={(media) =>
+								setAttributes({
+									backgroundImageId: media.id,
+									backgroundImageUrl: media.url,
+									backgroundImageAlt: media.alt || media.title || "",
+								})
+							}
+							allowedTypes={["image"]}
+							value={attributes.backgroundImageId}
+							render={({ open }) => (
+								<div className="home-hero-editor__media">
+									{attributes.backgroundImageUrl ? (
+										<img
+											src={attributes.backgroundImageUrl}
+											alt=""
+											className="home-hero-editor__preview"
+										/>
+									) : (
+										<div className="home-hero-editor__empty">No background image selected</div>
+									)}
+									<Button variant="secondary" onClick={open}>
+										{attributes.backgroundImageUrl ? "Replace Image" : "Select Image"}
+									</Button>
+									{attributes.backgroundImageUrl && (
+										<Button
+											variant="link"
+											isDestructive
+											onClick={() =>
+												setAttributes({
+													backgroundImageId: 0,
+													backgroundImageUrl: "",
+													backgroundImageAlt: "",
+												})
+											}
+										>
+											Remove
+										</Button>
+									)}
+								</div>
+							)}
+						/>
+					</MediaUploadCheck>
+					<TextControl
+						label="Image Alt Text"
+						value={attributes.backgroundImageAlt}
+						onChange={(backgroundImageAlt) => setAttributes({ backgroundImageAlt })}
+					/>
+					<SelectControl
+						label="Object Fit"
+						value={attributes.imageObjectFit}
+						options={OBJECT_FIT_OPTIONS}
+						onChange={(imageObjectFit) => setAttributes({ imageObjectFit })}
+					/>
+					<SelectControl
+						label="Object Position"
+						value={attributes.imageObjectPosition}
+						options={OBJECT_POSITION_OPTIONS}
+						onChange={(imageObjectPosition) => setAttributes({ imageObjectPosition })}
+					/>
+					<RangeControl
+						label="Minimum Height"
+						value={attributes.minHeight}
+						onChange={(minHeight) => setAttributes({ minHeight })}
+						min={320}
+						max={900}
+						step={10}
+					/>
+					<RangeControl
+						label="Overlay Strength"
+						value={attributes.overlayOpacity}
+						onChange={(overlayOpacity) => setAttributes({ overlayOpacity })}
+						min={0}
+						max={80}
+						step={2}
+					/>
+				</PanelBody>
+
+				<PanelBody title="Buttons" initialOpen={false}>
 					<TextControl
 						label="Primary Button Text"
-						value={primaryBtnText}
-						onChange={(value) => setAttributes({ primaryBtnText: value })}
+						value={attributes.primaryButtonText}
+						onChange={(primaryButtonText) => setAttributes({ primaryButtonText })}
 					/>
+					<p>Primary Button URL</p>
 					<URLInputButton
-						url={primaryBtnUrl}
-						onChange={(value) => setAttributes({ primaryBtnUrl: value })}
+						url={attributes.primaryButtonUrl}
+						onChange={(primaryButtonUrl) => setAttributes({ primaryButtonUrl })}
 					/>
 					<TextControl
 						label="Secondary Button Text"
-						value={secondaryBtnText}
-						onChange={(value) => setAttributes({ secondaryBtnText: value })}
+						value={attributes.secondaryButtonText}
+						onChange={(secondaryButtonText) => setAttributes({ secondaryButtonText })}
 					/>
+					<p>Secondary Button URL</p>
 					<URLInputButton
-						url={secondaryBtnUrl}
-						onChange={(value) => setAttributes({ secondaryBtnUrl: value })}
-					/>
-				</PanelBody>
-
-				<PanelBody title="Stats" initialOpen={false}>
-					<TextControl
-						label="Stat 1 Value"
-						value={statOneValue}
-						onChange={(value) => setAttributes({ statOneValue: value })}
-					/>
-					<TextControl
-						label="Stat 1 Label"
-						value={statOneLabel}
-						onChange={(value) => setAttributes({ statOneLabel: value })}
-					/>
-					<TextControl
-						label="Stat 2 Value"
-						value={statTwoValue}
-						onChange={(value) => setAttributes({ statTwoValue: value })}
-					/>
-					<TextControl
-						label="Stat 2 Label"
-						value={statTwoLabel}
-						onChange={(value) => setAttributes({ statTwoLabel: value })}
-					/>
-					<TextControl
-						label="Stat 3 Value"
-						value={statThreeValue}
-						onChange={(value) => setAttributes({ statThreeValue: value })}
-					/>
-					<TextControl
-						label="Stat 3 Label"
-						value={statThreeLabel}
-						onChange={(value) => setAttributes({ statThreeLabel: value })}
-					/>
-				</PanelBody>
-
-				<PanelBody title="Collage Images" initialOpen={false}>
-					{TILE_CONFIG.map(({ key, attrId, attrUrl }) => (
-						<TilePicker
-							key={key}
-							title={key}
-							imageId={attributes[attrId]}
-							imageUrl={attributes[attrUrl]}
-							onSelect={(media) =>
-								setAttributes({ [attrId]: media.id, [attrUrl]: media.url })
-							}
-							onRemove={() => setAttributes({ [attrId]: 0, [attrUrl]: "" })}
-						/>
-					))}
-				</PanelBody>
-
-				<PanelBody title="Labels" initialOpen={false}>
-					<TextControl
-						label="Teak Label"
-						value={labelTeak}
-						onChange={(value) => setAttributes({ labelTeak: value })}
-					/>
-					<TextControl
-						label="Willow Label"
-						value={labelWillow}
-						onChange={(value) => setAttributes({ labelWillow: value })}
-					/>
-					<TextControl
-						label="Walnut Label"
-						value={labelWalnut}
-						onChange={(value) => setAttributes({ labelWalnut: value })}
-					/>
-					<TextControl
-						label="Maple Label"
-						value={labelMaple}
-						onChange={(value) => setAttributes({ labelMaple: value })}
-					/>
-					<TextControl
-						label="Location Title"
-						value={locationTitle}
-						onChange={(value) => setAttributes({ locationTitle: value })}
-					/>
-					<TextControl
-						label="Location Subtitle"
-						value={locationSubtitle}
-						onChange={(value) => setAttributes({ locationSubtitle: value })}
+						url={attributes.secondaryButtonUrl}
+						onChange={(secondaryButtonUrl) => setAttributes({ secondaryButtonUrl })}
 					/>
 				</PanelBody>
 			</InspectorControls>
 
-			<div {...blockProps}>
-				<div className="hh__inner">
-					<div className="hh__left">
-						<RichText
-							tagName="p"
-							className="hh__eyebrow"
-							value={eyebrow}
-							onChange={(value) => setAttributes({ eyebrow: value })}
-							placeholder="Eyebrow text"
-						/>
-						<RichText
-							tagName="h2"
-							className="hh__title"
-							value={heading}
-							onChange={(value) => setAttributes({ heading: value })}
-							placeholder="Main heading"
-						/>
-						<RichText
-							tagName="p"
-							className="hh__desc"
-							value={description}
-							onChange={(value) => setAttributes({ description: value })}
-							placeholder="Description"
-						/>
-
-						<div className="hh__actions">
-							<span className="hh__btn hh__btn--primary">{primaryBtnText || "Browse Products"}</span>
-							<span className="hh__btn hh__btn--outline">{secondaryBtnText || "Get a Quote"}</span>
-						</div>
-
-						<div className="hh__stats">
-							<div className="hh__stat">
-								<RichText tagName="p" className="hh__stat-value" value={statOneValue} onChange={(value) => setAttributes({ statOneValue: value })} placeholder="20+" />
-								<RichText tagName="p" className="hh__stat-label" value={statOneLabel} onChange={(value) => setAttributes({ statOneLabel: value })} placeholder="Years Experience" />
-							</div>
-							<div className="hh__stat">
-								<RichText tagName="p" className="hh__stat-value" value={statTwoValue} onChange={(value) => setAttributes({ statTwoValue: value })} placeholder="500+" />
-								<RichText tagName="p" className="hh__stat-label" value={statTwoLabel} onChange={(value) => setAttributes({ statTwoLabel: value })} placeholder="Projects Completed" />
-							</div>
-							<div className="hh__stat">
-								<RichText tagName="p" className="hh__stat-value" value={statThreeValue} onChange={(value) => setAttributes({ statThreeValue: value })} placeholder="B2B" />
-								<RichText tagName="p" className="hh__stat-label" value={statThreeLabel} onChange={(value) => setAttributes({ statThreeLabel: value })} placeholder="Trade Specialists" />
-							</div>
-						</div>
-					</div>
-
-					<div className="hh__right">
-						<div className="hh__tiles">
-							{[labelTeak, labelWillow, labelWalnut, labelMaple].map((label, index) => (
-								<div key={label + index} className={`hh__tile hh__tile--${index + 1}`}>
-									{tiles[index] ? <img src={tiles[index]} alt="" className="hh__tile-img" /> : <span className="hh__tile-fallback">Upload image</span>}
-									<span className="hh__wood-label">{label}</span>
-									{index === 1 && (
-										<div className="hh__location-badge">
-											<p>{locationTitle}</p>
-											<p>{locationSubtitle}</p>
-										</div>
-									)}
-								</div>
-							))}
-						</div>
+			<section {...blockProps}>
+				{attributes.backgroundImageUrl && (
+					<img
+						className="home-hero__image"
+						src={attributes.backgroundImageUrl}
+						alt=""
+					/>
+				)}
+				<div className="home-hero__overlay" />
+				<div className="home-hero__inner">
+					<RichText
+						tagName="p"
+						className="home-hero__eyebrow"
+						value={attributes.eyebrow}
+						onChange={(eyebrow) => setAttributes({ eyebrow })}
+						placeholder="Eyebrow"
+					/>
+					<RichText
+						tagName="h1"
+						className="home-hero__heading az-title-heading"
+						value={attributes.heading}
+						onChange={(heading) => setAttributes({ heading })}
+						placeholder="Hero heading"
+					/>
+					<RichText
+						tagName="p"
+						className="home-hero__description"
+						value={attributes.description}
+						onChange={(description) => setAttributes({ description })}
+						placeholder="Hero description"
+					/>
+					<div className="home-hero__actions">
+						<span className="home-hero__button home-hero__button--primary az-button az-button--medium">
+							{attributes.primaryButtonText}
+						</span>
+						<span className="home-hero__button home-hero__button--secondary az-button az-button--medium">
+							{attributes.secondaryButtonText}
+						</span>
 					</div>
 				</div>
-			</div>
+			</section>
 		</>
 	);
 }

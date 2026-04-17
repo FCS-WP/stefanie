@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/home-boxes",
+	"version": "1.0.0",
+	"title": "Home - Boxes",
+	"category": "ai-zippy",
+	"icon": "grid-view",
+	"description": "Homepage stat boxes for trust highlights and campaign numbers.",
+	"keywords": ["home", "boxes", "stats", "cards"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"boxOneValue": { "type": "string", "default": "2,400+" },
+		"boxOneLabel": { "type": "string", "default": "Happy families" },
+		"boxTwoValue": { "type": "string", "default": "300+" },
+		"boxTwoLabel": { "type": "string", "default": "Curated products" },
+		"boxThreeValue": { "type": "string", "default": "NEW" },
+		"boxThreeLabel": { "type": "string", "default": "Drop weekly" }
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}
