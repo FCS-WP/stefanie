@@ -44,6 +44,23 @@
   padding-top: 16px;
 }
 
+.site-header-editor__mega-column {
+  border-top: 1px solid #e7e1d8;
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+.site-header-editor__mega-item {
+  background: #fffbf4;
+  border: 1px solid #e7e1d8;
+  border-radius: 6px;
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+}
+
 .site-header-editor__logo-media {
   display: grid;
   gap: 10px;

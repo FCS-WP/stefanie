@@ -49,7 +49,47 @@
 		"showPromo": { "type": "boolean", "default": true },
 		"showSearch": { "type": "boolean", "default": true },
 		"showWishlist": { "type": "boolean", "default": true },
-		"showCart": { "type": "boolean", "default": true }
+		"showCart": { "type": "boolean", "default": true },
+		"enableMegaMenu": { "type": "boolean", "default": true },
+		"megaMenuParentLabel": { "type": "string", "default": "Shop" },
+		"megaMenuColumns": {
+			"type": "array",
+			"default": [
+				{
+					"heading": "BY OCCASION",
+					"items": [
+						{ "icon": "⚡", "label": "Last Minute Birthday Gift", "url": "/shop-by-occasion/last-minute-birthday-gift", "badge": "URGENT", "highlight": false },
+						{ "icon": "🎂", "label": "Birthday", "url": "/shop-by-occasion/birthday", "badge": "", "highlight": false },
+						{ "icon": "👶", "label": "Baby Shower & 1st Month", "url": "/shop-by-occasion/baby-shower", "badge": "", "highlight": false },
+						{ "icon": "🌙", "label": "Full Month Celebration", "url": "/shop-by-occasion/full-month", "badge": "", "highlight": false },
+						{ "icon": "🎄", "label": "Festive & Christmas", "url": "/shop-by-occasion/festive-christmas", "badge": "", "highlight": false },
+						{ "icon": "🎓", "label": "Graduation", "url": "/shop-by-occasion/graduation", "badge": "", "highlight": false }
+					]
+				},
+				{
+					"heading": "BY AGE",
+					"items": [
+						{ "icon": "🍼", "label": "0-12 Months", "url": "/shop-by-age/0-12-months", "badge": "", "highlight": false },
+						{ "icon": "🚶", "label": "1-3 Years", "url": "/shop-by-age/1-3-years", "badge": "", "highlight": false },
+						{ "icon": "🧠", "label": "4-6 Years", "url": "/shop-by-age/4-6-years", "badge": "", "highlight": false },
+						{ "icon": "⚽", "label": "7-10 Years", "url": "/shop-by-age/7-10-years", "badge": "", "highlight": false },
+						{ "icon": "🎮", "label": "11-14 Years", "url": "/shop-by-age/11-14-years", "badge": "", "highlight": false },
+						{ "icon": "☀️", "label": "14+", "url": "/shop-by-age/14-plus", "badge": "", "highlight": false }
+					]
+				},
+				{
+					"heading": "COLLECTIONS",
+					"items": [
+						{ "icon": "✨", "label": "New Arrivals", "url": "/new-arrivals", "badge": "", "highlight": false },
+						{ "icon": "🔥", "label": "Trending Now", "url": "/trending", "badge": "", "highlight": false },
+						{ "icon": "🎁", "label": "Gift Sets & Hampers", "url": "/gift-sets-hampers", "badge": "", "highlight": false },
+						{ "icon": "💝", "label": "Curated Hampers", "url": "/curated-hampers", "badge": "", "highlight": true },
+						{ "icon": "🔄", "label": "Back in Stock", "url": "/back-in-stock", "badge": "", "highlight": false },
+						{ "icon": "💻", "label": "Online Exclusives", "url": "/online-exclusives", "badge": "", "highlight": false }
+					]
+				}
+			]
+		}
 	},
 	"textdomain": "ai-zippy-child",
 	"editorScript": "file:./index.js",

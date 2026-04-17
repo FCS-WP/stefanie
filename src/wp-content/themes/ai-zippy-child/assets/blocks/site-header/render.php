@@ -41,6 +41,43 @@ $attrs = wp_parse_args($attributes ?? [], [
     'showSearch'    => true,
     'showWishlist'  => true,
     'showCart'      => true,
+    'enableMegaMenu' => true,
+    'megaMenuParentLabel' => 'Shop',
+    'megaMenuColumns' => [
+        [
+            'heading' => 'BY OCCASION',
+            'items'   => [
+                ['icon' => '⚡', 'label' => 'Last Minute Birthday Gift', 'url' => '/shop-by-occasion/last-minute-birthday-gift', 'badge' => 'URGENT', 'highlight' => false],
+                ['icon' => '🎂', 'label' => 'Birthday', 'url' => '/shop-by-occasion/birthday', 'badge' => '', 'highlight' => false],
+                ['icon' => '👶', 'label' => 'Baby Shower & 1st Month', 'url' => '/shop-by-occasion/baby-shower', 'badge' => '', 'highlight' => false],
+                ['icon' => '🌙', 'label' => 'Full Month Celebration', 'url' => '/shop-by-occasion/full-month', 'badge' => '', 'highlight' => false],
+                ['icon' => '🎄', 'label' => 'Festive & Christmas', 'url' => '/shop-by-occasion/festive-christmas', 'badge' => '', 'highlight' => false],
+                ['icon' => '🎓', 'label' => 'Graduation', 'url' => '/shop-by-occasion/graduation', 'badge' => '', 'highlight' => false],
+            ],
+        ],
+        [
+            'heading' => 'BY AGE',
+            'items'   => [
+                ['icon' => '🍼', 'label' => '0-12 Months', 'url' => '/shop-by-age/0-12-months', 'badge' => '', 'highlight' => false],
+                ['icon' => '🚶', 'label' => '1-3 Years', 'url' => '/shop-by-age/1-3-years', 'badge' => '', 'highlight' => false],
+                ['icon' => '🧠', 'label' => '4-6 Years', 'url' => '/shop-by-age/4-6-years', 'badge' => '', 'highlight' => false],
+                ['icon' => '⚽', 'label' => '7-10 Years', 'url' => '/shop-by-age/7-10-years', 'badge' => '', 'highlight' => false],
+                ['icon' => '🎮', 'label' => '11-14 Years', 'url' => '/shop-by-age/11-14-years', 'badge' => '', 'highlight' => false],
+                ['icon' => '☀️', 'label' => '14+', 'url' => '/shop-by-age/14-plus', 'badge' => '', 'highlight' => false],
+            ],
+        ],
+        [
+            'heading' => 'COLLECTIONS',
+            'items'   => [
+                ['icon' => '✨', 'label' => 'New Arrivals', 'url' => '/new-arrivals', 'badge' => '', 'highlight' => false],
+                ['icon' => '🔥', 'label' => 'Trending Now', 'url' => '/trending', 'badge' => '', 'highlight' => false],
+                ['icon' => '🎁', 'label' => 'Gift Sets & Hampers', 'url' => '/gift-sets-hampers', 'badge' => '', 'highlight' => false],
+                ['icon' => '💝', 'label' => 'Curated Hampers', 'url' => '/curated-hampers', 'badge' => '', 'highlight' => true],
+                ['icon' => '🔄', 'label' => 'Back in Stock', 'url' => '/back-in-stock', 'badge' => '', 'highlight' => false],
+                ['icon' => '💻', 'label' => 'Online Exclusives', 'url' => '/online-exclusives', 'badge' => '', 'highlight' => false],
+            ],
+        ],
+    ],
 ]);
 
 $fallback_links = [
@@ -134,7 +171,94 @@ $render_logo = static function () use ($attrs): string {
     );
 };
 
-$render_nav = static function (array $links, string $class_name): void {
+$normalize_mega_columns = static function ($columns): array {
+    if (!is_array($columns)) {
+        return [];
+    }
+
+    $normalized = [];
+
+    foreach ($columns as $column) {
+        if (!is_array($column)) {
+            continue;
+        }
+
+        $items = [];
+
+        foreach (($column['items'] ?? []) as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+
+            $label = trim((string) ($item['label'] ?? ''));
+
+            if ($label === '') {
+                continue;
+            }
+
+            $items[] = [
+                'icon'      => trim((string) ($item['icon'] ?? '')),
+                'label'     => $label,
+                'url'       => trim((string) ($item['url'] ?? '#')),
+                'badge'     => trim((string) ($item['badge'] ?? '')),
+                'highlight' => !empty($item['highlight']),
+            ];
+        }
+
+        $heading = trim((string) ($column['heading'] ?? ''));
+
+        if ($heading === '' && !$items) {
+            continue;
+        }
+
+        $normalized[] = [
+            'heading' => $heading,
+            'items'   => $items,
+        ];
+    }
+
+    return $normalized;
+};
+
+$mega_columns = $normalize_mega_columns($attrs['megaMenuColumns']);
+$mega_trigger = strtolower(trim((string) $attrs['megaMenuParentLabel']));
+
+$render_mega_menu = static function (array $columns): void {
+    if (!$columns) {
+        return;
+    }
+    ?>
+    <div class="site-header__mega">
+        <div class="site-header__mega-grid">
+            <?php foreach ($columns as $column) : ?>
+                <div class="site-header__mega-column">
+                    <?php if ($column['heading'] !== '') : ?>
+                        <div class="site-header__mega-heading"><?php echo esc_html($column['heading']); ?></div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($column['items'])) : ?>
+                        <div class="site-header__mega-list">
+                            <?php foreach ($column['items'] as $item) : ?>
+                                <a class="site-header__mega-link<?php echo !empty($item['highlight']) ? ' is-highlighted' : ''; ?>" href="<?php echo esc_url($item['url'] ?: '#'); ?>">
+                                    <?php if ($item['icon'] !== '') : ?>
+                                        <span class="site-header__mega-icon" aria-hidden="true"><?php echo esc_html($item['icon']); ?></span>
+                                    <?php endif; ?>
+                                    <span class="site-header__mega-label"><?php echo esc_html($item['label']); ?></span>
+                                    <?php if ($item['badge'] !== '') : ?>
+                                        <span class="site-header__mega-badge"><?php echo esc_html($item['badge']); ?></span>
+                                    <?php endif; ?>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php
+};
+
+$render_nav = static function (array $links, string $class_name) use ($attrs, $mega_columns, $mega_trigger, $render_mega_menu): void {
     foreach ($links as $link) {
         $label = trim((string) ($link['label'] ?? ''));
         $url   = trim((string) ($link['url'] ?? '#'));
@@ -143,12 +267,23 @@ $render_nav = static function (array $links, string $class_name): void {
             continue;
         }
 
+        $has_mega = !empty($attrs['enableMegaMenu']) && $mega_columns && $mega_trigger !== '' && strtolower($label) === $mega_trigger;
+        $item_class = 'site-header__nav-item' . ($has_mega ? ' site-header__nav-item--mega' : '');
+
+        echo '<span class="' . esc_attr($item_class) . '">';
         printf(
-            '<a class="%1$s" href="%2$s">%3$s</a>',
+            '<a class="%1$s" href="%2$s"%4$s>%3$s</a>',
             esc_attr($class_name),
             esc_url($url ?: '#'),
-            esc_html($label)
+            esc_html($label),
+            $has_mega ? ' aria-haspopup="true"' : ''
         );
+
+        if ($has_mega) {
+            $render_mega_menu($mega_columns);
+        }
+
+        echo '</span>';
     }
 };
 ?>

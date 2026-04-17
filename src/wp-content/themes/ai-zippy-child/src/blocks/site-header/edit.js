@@ -41,6 +41,66 @@ const OBJECT_POSITION_OPTIONS = [
 	{ label: "Bottom Center", value: "center bottom" },
 ];
 
+const DEFAULT_MEGA_ITEM = {
+	icon: "✨",
+	label: "Menu item",
+	url: "#",
+	badge: "",
+	highlight: false,
+};
+
+const createMegaColumn = () => ({
+	heading: "COLUMN TITLE",
+	items: [{ ...DEFAULT_MEGA_ITEM }],
+});
+
+const normalizeMegaColumns = (columns) =>
+	(Array.isArray(columns) ? columns : []).map((column) => ({
+		heading: column?.heading || "",
+		items: (Array.isArray(column?.items) ? column.items : []).map((item) => ({
+			...DEFAULT_MEGA_ITEM,
+			...item,
+		})),
+	}));
+
+function MegaMenuPreview({ columns }) {
+	const visibleColumns = normalizeMegaColumns(columns).filter(
+		(column) => column.heading || column.items.length,
+	);
+
+	if (!visibleColumns.length) {
+		return null;
+	}
+
+	return (
+		<div className="site-header__mega">
+			<div className="site-header__mega-grid">
+				{visibleColumns.map((column, columnIndex) => (
+					<div className="site-header__mega-column" key={`${column.heading}-${columnIndex}`}>
+						{column.heading && (
+							<div className="site-header__mega-heading">{column.heading}</div>
+						)}
+						<div className="site-header__mega-list">
+							{column.items.map((item, itemIndex) => (
+								<span
+									className={`site-header__mega-link${item.highlight ? " is-highlighted" : ""}`}
+									key={`${item.label}-${itemIndex}`}
+								>
+									<span className="site-header__mega-icon">{item.icon}</span>
+									<span className="site-header__mega-label">{item.label}</span>
+									{item.badge && (
+										<span className="site-header__mega-badge">{item.badge}</span>
+									)}
+								</span>
+							))}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	);
+}
+
 function SearchIcon() {
 	return (
 		<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -139,6 +199,59 @@ export default function Edit({ attributes, setAttributes }) {
 		url: attributes[`${key}Url`] || "#",
 	}));
 	const navItems = attributes.menuId && menuItems.length ? menuItems : fallbackItems;
+	const megaColumns = normalizeMegaColumns(attributes.megaMenuColumns);
+	const megaTrigger = (attributes.megaMenuParentLabel || "").trim().toLowerCase();
+	const updateMegaColumn = (columnIndex, updates) => {
+		const nextColumns = [...megaColumns];
+		nextColumns[columnIndex] = {
+			...createMegaColumn(),
+			...nextColumns[columnIndex],
+			...updates,
+		};
+		setAttributes({ megaMenuColumns: nextColumns });
+	};
+	const updateMegaItem = (columnIndex, itemIndex, updates) => {
+		const nextColumns = [...megaColumns];
+		const column = {
+			...createMegaColumn(),
+			...nextColumns[columnIndex],
+		};
+		const nextItems = [...(column.items || [])];
+		nextItems[itemIndex] = {
+			...DEFAULT_MEGA_ITEM,
+			...nextItems[itemIndex],
+			...updates,
+		};
+		nextColumns[columnIndex] = {
+			...column,
+			items: nextItems,
+		};
+		setAttributes({ megaMenuColumns: nextColumns });
+	};
+	const addMegaItem = (columnIndex) => {
+		const nextColumns = [...megaColumns];
+		const column = {
+			...createMegaColumn(),
+			...nextColumns[columnIndex],
+		};
+		nextColumns[columnIndex] = {
+			...column,
+			items: [...(column.items || []), { ...DEFAULT_MEGA_ITEM }],
+		};
+		setAttributes({ megaMenuColumns: nextColumns });
+	};
+	const removeMegaItem = (columnIndex, itemIndex) => {
+		const nextColumns = [...megaColumns];
+		const column = {
+			...createMegaColumn(),
+			...nextColumns[columnIndex],
+		};
+		nextColumns[columnIndex] = {
+			...column,
+			items: (column.items || []).filter((item, index) => index !== itemIndex),
+		};
+		setAttributes({ megaMenuColumns: nextColumns });
+	};
 	const logoImageStyle = {
 		"--site-header-logo-width": `${attributes.logoImageWidth || 320}px`,
 		"--site-header-logo-min-height": `${attributes.logoImageMinHeight || 54}px`,
@@ -319,6 +432,80 @@ export default function Edit({ attributes, setAttributes }) {
 					))}
 				</PanelBody>
 
+				<PanelBody title="Mega Menu" initialOpen={false}>
+					<ToggleControl
+						label="Enable mega menu"
+						checked={attributes.enableMegaMenu}
+						onChange={(enableMegaMenu) => setAttributes({ enableMegaMenu })}
+					/>
+					<TextControl
+						label="Show under menu item"
+						value={attributes.megaMenuParentLabel}
+						onChange={(megaMenuParentLabel) => setAttributes({ megaMenuParentLabel })}
+						help="This should match a top-level menu label, for example Shop."
+					/>
+
+					{megaColumns.map((column, columnIndex) => (
+						<div className="site-header-editor__mega-column" key={columnIndex}>
+							<TextControl
+								label={`Column ${columnIndex + 1} Heading`}
+								value={column.heading}
+								onChange={(heading) => updateMegaColumn(columnIndex, { heading })}
+							/>
+							{column.items.map((item, itemIndex) => (
+								<div className="site-header-editor__mega-item" key={itemIndex}>
+									<TextControl
+										label="Icon"
+										value={item.icon}
+										onChange={(icon) => updateMegaItem(columnIndex, itemIndex, { icon })}
+									/>
+									<TextControl
+										label="Label"
+										value={item.label}
+										onChange={(label) => updateMegaItem(columnIndex, itemIndex, { label })}
+									/>
+									<p>Link</p>
+									<URLInputButton
+										url={item.url}
+										onChange={(url) => updateMegaItem(columnIndex, itemIndex, { url })}
+									/>
+									<TextControl
+										label="Badge"
+										value={item.badge}
+										onChange={(badge) => updateMegaItem(columnIndex, itemIndex, { badge })}
+									/>
+									<ToggleControl
+										label="Highlight item"
+										checked={item.highlight}
+										onChange={(highlight) =>
+											updateMegaItem(columnIndex, itemIndex, { highlight })
+										}
+									/>
+									<Button
+										variant="link"
+										isDestructive
+										onClick={() => removeMegaItem(columnIndex, itemIndex)}
+									>
+										Remove item
+									</Button>
+								</div>
+							))}
+							<Button variant="secondary" onClick={() => addMegaItem(columnIndex)}>
+								Add item
+							</Button>
+						</div>
+					))}
+
+					<Button
+						variant="secondary"
+						onClick={() =>
+							setAttributes({ megaMenuColumns: [...megaColumns, createMegaColumn()] })
+						}
+					>
+						Add column
+					</Button>
+				</PanelBody>
+
 				<PanelBody title="Actions" initialOpen={false}>
 					<ToggleControl
 						label="Show search icon"
@@ -378,11 +565,24 @@ export default function Edit({ attributes, setAttributes }) {
 					<div className="site-header__inner">
 						<div className="site-header__logo" style={logoImageStyle}>{logo}</div>
 						<nav className="site-header__nav" aria-label="Preview navigation">
-							{navItems.map((item) => (
-								<span className="site-header__nav-link" key={item.id}>
-									{item.label}
-								</span>
-							))}
+							{navItems.map((item) => {
+								const hasMega =
+									attributes.enableMegaMenu &&
+									megaTrigger &&
+									String(item.label || "").trim().toLowerCase() === megaTrigger;
+
+								return (
+									<span
+										className={`site-header__nav-item${hasMega ? " site-header__nav-item--mega" : ""}`}
+										key={item.id}
+									>
+										<span className="site-header__nav-link">
+											{item.label}
+										</span>
+										{hasMega && <MegaMenuPreview columns={megaColumns} />}
+									</span>
+								);
+							})}
 						</nav>
 						<div className="site-header__actions">
 							{attributes.showSearch && <span className="site-header__icon"><SearchIcon /></span>}

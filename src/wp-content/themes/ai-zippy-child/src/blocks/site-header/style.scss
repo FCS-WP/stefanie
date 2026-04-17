@@ -59,6 +59,7 @@
     max-width: var(--az-section-max-width, 1735px);
     min-height: 161px;
     padding: 30px var(--az-section-x-padding, clamp(24px, 7vw, 96px));
+    position: relative;
   }
 
   .site-header__logo {
@@ -94,6 +95,12 @@
     justify-content: center;
   }
 
+  .site-header__nav-item {
+    align-items: center;
+    display: inline-flex;
+    min-height: 48px;
+  }
+
   .site-header__nav-link {
     color: #2f5ea8;
     font-family: var(--wp--preset--font-family--dm-sans, "DM Sans", sans-serif);
@@ -102,6 +109,122 @@
     line-height: 1.2;
     text-transform: uppercase;
     white-space: nowrap;
+  }
+
+  .site-header__mega {
+    background: #fff;
+    border: 1px solid rgba(231, 225, 216, 0.88);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 18px 46px rgba(44, 62, 122, 0.13);
+    color: #343746;
+    left: 50%;
+    max-width: calc(100vw - 32px);
+    opacity: 0;
+    padding: 24px 0;
+    pointer-events: none;
+    position: absolute;
+    top: calc(100% - 65px);
+    transform: translate(-50%, 10px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+    visibility: hidden;
+    width: min(760px, calc(100vw - 32px));
+    z-index: 70;
+  }
+
+  .site-header__mega::before {
+    content: "";
+    height: 18px;
+    left: 0;
+    position: absolute;
+    top: -18px;
+    width: 100%;
+  }
+
+  .site-header__nav-item--mega:hover .site-header__mega,
+  .site-header__nav-item--mega:focus-within .site-header__mega,
+  .site-header__nav-item--mega.is-open .site-header__mega {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    visibility: visible;
+  }
+
+  .site-header__mega-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .site-header__mega-column {
+    border-left: 1px solid rgba(231, 225, 216, 0.8);
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+    padding: 0 24px;
+
+    &:first-child {
+      border-left: 0;
+    }
+  }
+
+  .site-header__mega-heading {
+    color: #8d919b;
+    font-family: var(--wp--preset--font-family--dm-sans, "DM Sans", sans-serif);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .site-header__mega-list {
+    display: grid;
+    gap: 6px;
+  }
+
+  .site-header__mega-link {
+    align-items: center;
+    border-radius: 8px;
+    color: #343746;
+    display: grid;
+    font-family: var(--wp--preset--font-family--dm-sans, "DM Sans", sans-serif);
+    font-size: 14px;
+    font-weight: 600;
+    gap: 10px;
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+    line-height: 1.25;
+    min-height: 34px;
+    padding: 6px 8px;
+    text-transform: none;
+    white-space: normal;
+  }
+
+  .site-header__mega-link:hover,
+  .site-header__mega-link:focus-visible,
+  .site-header__mega-link.is-highlighted {
+    background: #fbf0ea;
+    color: var(--site-header-red);
+  }
+
+  .site-header__mega-icon {
+    display: inline-flex;
+    font-size: 15px;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .site-header__mega-label {
+    min-width: 0;
+  }
+
+  .site-header__mega-badge {
+    background: var(--site-header-red);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 8px;
+    font-weight: 800;
+    line-height: 1;
+    padding: 4px 7px;
+    text-transform: uppercase;
   }
 
   .site-header__nav-link:hover,
@@ -265,6 +388,10 @@
     gap: 6px;
   }
 
+  .site-header__drawer-nav .site-header__nav-item {
+    display: block;
+  }
+
   .site-header__drawer-link {
     border-bottom: 1px solid var(--site-header-border);
     color: #2f5ea8;
@@ -273,6 +400,40 @@
     font-weight: 500;
     padding: 14px 0;
     text-transform: uppercase;
+  }
+
+  .site-header__drawer-nav .site-header__mega {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--site-header-border);
+    border-radius: 0;
+    box-shadow: none;
+    left: auto;
+    max-width: none;
+    opacity: 1;
+    padding: 4px 0 18px;
+    pointer-events: auto;
+    position: static;
+    transform: none;
+    visibility: visible;
+    width: 100%;
+  }
+
+  .site-header__drawer-nav .site-header__mega-grid {
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+
+  .site-header__drawer-nav .site-header__mega-column {
+    border-left: 0;
+    gap: 8px;
+    padding: 0;
+  }
+
+  .site-header__drawer-nav .site-header__mega-link {
+    font-size: 15px;
+    min-height: 32px;
+    padding: 4px 0;
   }
 
   .site-header__drawer-cta {
