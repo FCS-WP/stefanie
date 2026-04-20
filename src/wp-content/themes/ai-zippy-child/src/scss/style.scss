@@ -64,3 +64,29 @@
     min-width: clamp(260px, 24vw, 520px) !important;
     padding: 18px 42px !important;
 }
+
+a.added_to_cart {
+    margin-top: 0 !important;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.checkout {
+    .woocommerce {
+        max-width: 1280px !important;
+    }
+    .woocommerce-billing-fields {
+        label {
+            font-size: 16px;
+            font-weight: 800;
+        }
+        select {
+            min-height: 40px;
+            padding: .9rem 1.1rem;
+        }
+    }
+    .woocommerce-page table.shop_table {
+        width: 100%;
+    }
+}

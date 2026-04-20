@@ -139,6 +139,7 @@ function MenuIcon() {
 export default function Edit({ attributes, setAttributes }) {
 	const [menus, setMenus] = useState([]);
 	const [menuItems, setMenuItems] = useState([]);
+	const [megaMenus, setMegaMenus] = useState([]);
 	const [isLoadingMenus, setIsLoadingMenus] = useState(false);
 	const blockProps = useBlockProps({ className: "site-header" });
 
@@ -160,6 +161,26 @@ export default function Edit({ attributes, setAttributes }) {
 			.finally(() => {
 				if (isMounted) {
 					setIsLoadingMenus(false);
+				}
+			});
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
+	useEffect(() => {
+		let isMounted = true;
+
+		apiFetch({ path: "/ai-zippy-child/v1/mega-menus" })
+			.then((items) => {
+				if (isMounted) {
+					setMegaMenus(Array.isArray(items) ? items : []);
+				}
+			})
+			.catch(() => {
+				if (isMounted) {
+					setMegaMenus([]);
 				}
 			});
 
@@ -200,7 +221,45 @@ export default function Edit({ attributes, setAttributes }) {
 	}));
 	const navItems = attributes.menuId && menuItems.length ? menuItems : fallbackItems;
 	const megaColumns = normalizeMegaColumns(attributes.megaMenuColumns);
-	const megaTrigger = (attributes.megaMenuParentLabel || "").trim().toLowerCase();
+	const megaMenuAssignments = Array.isArray(attributes.megaMenuAssignments)
+		? attributes.megaMenuAssignments
+		: [];
+	const legacyMegaTrigger = (attributes.megaMenuParentLabel || "").trim().toLowerCase();
+	const getAssignedMegaMenu = (label) => {
+		const labelKey = String(label || "").trim().toLowerCase();
+		const assignment = megaMenuAssignments.find(
+			(item) => String(item?.parentLabel || "").trim().toLowerCase() === labelKey,
+		);
+
+		if (!assignment?.megaMenuId) {
+			return null;
+		}
+
+		return megaMenus.find((menu) => menu.id === assignment.megaMenuId) || null;
+	};
+	const updateMegaAssignment = (index, updates) => {
+		const nextAssignments = [...megaMenuAssignments];
+		nextAssignments[index] = {
+			parentLabel: "",
+			megaMenuId: "",
+			...nextAssignments[index],
+			...updates,
+		};
+		setAttributes({ megaMenuAssignments: nextAssignments });
+	};
+	const addMegaAssignment = () => {
+		setAttributes({
+			megaMenuAssignments: [
+				...megaMenuAssignments,
+				{ parentLabel: "", megaMenuId: megaMenus[0]?.id || "" },
+			],
+		});
+	};
+	const removeMegaAssignment = (index) => {
+		setAttributes({
+			megaMenuAssignments: megaMenuAssignments.filter((item, itemIndex) => itemIndex !== index),
+		});
+	};
 	const updateMegaColumn = (columnIndex, updates) => {
 		const nextColumns = [...megaColumns];
 		nextColumns[columnIndex] = {
@@ -438,71 +497,43 @@ export default function Edit({ attributes, setAttributes }) {
 						checked={attributes.enableMegaMenu}
 						onChange={(enableMegaMenu) => setAttributes({ enableMegaMenu })}
 					/>
-					<TextControl
-						label="Show under menu item"
-						value={attributes.megaMenuParentLabel}
-						onChange={(megaMenuParentLabel) => setAttributes({ megaMenuParentLabel })}
-						help="This should match a top-level menu label, for example Shop."
-					/>
+					<p>
+						Create mega menus in Appearance → Mega Menus, then assign them to
+						header menu labels here.
+					</p>
 
-					{megaColumns.map((column, columnIndex) => (
-						<div className="site-header-editor__mega-column" key={columnIndex}>
+					{megaMenuAssignments.map((assignment, index) => (
+						<div className="site-header-editor__mega-assignment" key={index}>
 							<TextControl
-								label={`Column ${columnIndex + 1} Heading`}
-								value={column.heading}
-								onChange={(heading) => updateMegaColumn(columnIndex, { heading })}
+								label="Parent menu label"
+								value={assignment.parentLabel || ""}
+								onChange={(parentLabel) => updateMegaAssignment(index, { parentLabel })}
+								help="Must match a top-level header menu label, for example Shop."
 							/>
-							{column.items.map((item, itemIndex) => (
-								<div className="site-header-editor__mega-item" key={itemIndex}>
-									<TextControl
-										label="Icon"
-										value={item.icon}
-										onChange={(icon) => updateMegaItem(columnIndex, itemIndex, { icon })}
-									/>
-									<TextControl
-										label="Label"
-										value={item.label}
-										onChange={(label) => updateMegaItem(columnIndex, itemIndex, { label })}
-									/>
-									<p>Link</p>
-									<URLInputButton
-										url={item.url}
-										onChange={(url) => updateMegaItem(columnIndex, itemIndex, { url })}
-									/>
-									<TextControl
-										label="Badge"
-										value={item.badge}
-										onChange={(badge) => updateMegaItem(columnIndex, itemIndex, { badge })}
-									/>
-									<ToggleControl
-										label="Highlight item"
-										checked={item.highlight}
-										onChange={(highlight) =>
-											updateMegaItem(columnIndex, itemIndex, { highlight })
-										}
-									/>
-									<Button
-										variant="link"
-										isDestructive
-										onClick={() => removeMegaItem(columnIndex, itemIndex)}
-									>
-										Remove item
-									</Button>
-								</div>
-							))}
-							<Button variant="secondary" onClick={() => addMegaItem(columnIndex)}>
-								Add item
+							<SelectControl
+								label="Mega menu"
+								value={assignment.megaMenuId || ""}
+								options={[
+									{ label: "Select mega menu", value: "" },
+									...megaMenus.map((menu) => ({
+										label: menu.title,
+										value: menu.id,
+									})),
+								]}
+								onChange={(megaMenuId) => updateMegaAssignment(index, { megaMenuId })}
+							/>
+							<Button
+								variant="link"
+								isDestructive
+								onClick={() => removeMegaAssignment(index)}
+							>
+								Remove assignment
 							</Button>
 						</div>
 					))}
 
-					<Button
-						variant="secondary"
-						onClick={() =>
-							setAttributes({ megaMenuColumns: [...megaColumns, createMegaColumn()] })
-						}
-					>
-						Add column
+					<Button variant="secondary" onClick={addMegaAssignment}>
+						Add mega menu assignment
 					</Button>
 				</PanelBody>
 
@@ -566,20 +597,24 @@ export default function Edit({ attributes, setAttributes }) {
 						<div className="site-header__logo" style={logoImageStyle}>{logo}</div>
 						<nav className="site-header__nav" aria-label="Preview navigation">
 							{navItems.map((item) => {
-								const hasMega =
+								const assignedMegaMenu = getAssignedMegaMenu(item.label);
+								const hasSavedMega = attributes.enableMegaMenu && assignedMegaMenu;
+								const hasLegacyMega =
 									attributes.enableMegaMenu &&
-									megaTrigger &&
-									String(item.label || "").trim().toLowerCase() === megaTrigger;
+									!assignedMegaMenu &&
+									legacyMegaTrigger &&
+									String(item.label || "").trim().toLowerCase() === legacyMegaTrigger;
+								const previewColumns = assignedMegaMenu?.columns || megaColumns;
 
 								return (
 									<span
-										className={`site-header__nav-item${hasMega ? " site-header__nav-item--mega" : ""}`}
+										className={`site-header__nav-item${hasSavedMega || hasLegacyMega ? " site-header__nav-item--mega" : ""}`}
 										key={item.id}
 									>
 										<span className="site-header__nav-link">
 											{item.label}
 										</span>
-										{hasMega && <MegaMenuPreview columns={megaColumns} />}
+										{(hasSavedMega || hasLegacyMega) && <MegaMenuPreview columns={previewColumns} />}
 									</span>
 								);
 							})}

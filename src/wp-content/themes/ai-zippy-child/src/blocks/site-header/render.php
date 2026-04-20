@@ -43,6 +43,12 @@ $attrs = wp_parse_args($attributes ?? [], [
     'showCart'      => true,
     'enableMegaMenu' => true,
     'megaMenuParentLabel' => 'Shop',
+    'megaMenuAssignments' => [
+        [
+            'parentLabel' => 'Shop',
+            'megaMenuId'  => 'shop-default',
+        ],
+    ],
     'megaMenuColumns' => [
         [
             'heading' => 'BY OCCASION',
@@ -141,6 +147,7 @@ $logo_style               = sprintf(
     esc_attr($logo_image_object_fit),
     esc_attr($logo_image_position)
 );
+$cart_count = function_exists('WC') && WC()->cart ? (int) WC()->cart->get_cart_contents_count() : 0;
 
 $render_icon = static function (string $name): string {
     $icons = [
@@ -222,6 +229,37 @@ $normalize_mega_columns = static function ($columns): array {
 
 $mega_columns = $normalize_mega_columns($attrs['megaMenuColumns']);
 $mega_trigger = strtolower(trim((string) $attrs['megaMenuParentLabel']));
+$saved_mega_menus = function_exists('ai_zippy_child_get_mega_menus') ? ai_zippy_child_get_mega_menus() : [];
+$mega_assignments = is_array($attrs['megaMenuAssignments']) ? $attrs['megaMenuAssignments'] : [];
+
+$find_assigned_mega_columns = static function (string $label) use ($mega_assignments, $saved_mega_menus): array {
+    $label_key = strtolower(trim($label));
+
+    if ($label_key === '') {
+        return [];
+    }
+
+    foreach ($mega_assignments as $assignment) {
+        if (!is_array($assignment)) {
+            continue;
+        }
+
+        $parent_label = strtolower(trim((string) ($assignment['parentLabel'] ?? '')));
+        $mega_menu_id = sanitize_key($assignment['megaMenuId'] ?? '');
+
+        if ($parent_label === '' || $mega_menu_id === '' || $parent_label !== $label_key) {
+            continue;
+        }
+
+        foreach ($saved_mega_menus as $menu) {
+            if (($menu['id'] ?? '') === $mega_menu_id) {
+                return is_array($menu['columns'] ?? null) ? $menu['columns'] : [];
+            }
+        }
+    }
+
+    return [];
+};
 
 $render_mega_menu = static function (array $columns): void {
     if (!$columns) {
@@ -258,7 +296,7 @@ $render_mega_menu = static function (array $columns): void {
     <?php
 };
 
-$render_nav = static function (array $links, string $class_name) use ($attrs, $mega_columns, $mega_trigger, $render_mega_menu): void {
+$render_nav = static function (array $links, string $class_name) use ($attrs, $mega_columns, $mega_trigger, $find_assigned_mega_columns, $render_mega_menu): void {
     foreach ($links as $link) {
         $label = trim((string) ($link['label'] ?? ''));
         $url   = trim((string) ($link['url'] ?? '#'));
@@ -267,7 +305,14 @@ $render_nav = static function (array $links, string $class_name) use ($attrs, $m
             continue;
         }
 
-        $has_mega = !empty($attrs['enableMegaMenu']) && $mega_columns && $mega_trigger !== '' && strtolower($label) === $mega_trigger;
+        $assigned_columns = !empty($attrs['enableMegaMenu']) ? $find_assigned_mega_columns($label) : [];
+        $active_mega_columns = $assigned_columns;
+
+        if (!$active_mega_columns && !empty($attrs['enableMegaMenu']) && $mega_columns && $mega_trigger !== '' && strtolower($label) === $mega_trigger) {
+            $active_mega_columns = $mega_columns;
+        }
+
+        $has_mega = !empty($active_mega_columns);
         $item_class = 'site-header__nav-item' . ($has_mega ? ' site-header__nav-item--mega' : '');
 
         echo '<span class="' . esc_attr($item_class) . '">';
@@ -280,7 +325,7 @@ $render_nav = static function (array $links, string $class_name) use ($attrs, $m
         );
 
         if ($has_mega) {
-            $render_mega_menu($mega_columns);
+            $render_mega_menu($active_mega_columns);
         }
 
         echo '</span>';
@@ -321,8 +366,11 @@ $render_nav = static function (array $links, string $class_name) use ($attrs, $m
                 <?php endif; ?>
 
                 <?php if (!empty($attrs['showCart'])) : ?>
-                    <a class="site-header__icon" href="<?php echo esc_url($attrs['cartUrl'] ?: '#'); ?>" aria-label="<?php esc_attr_e('Cart', 'ai-zippy-child'); ?>">
+                    <a class="site-header__icon site-header__cart-link" href="<?php echo esc_url($attrs['cartUrl'] ?: '#'); ?>" aria-label="<?php echo esc_attr(sprintf(_n('Cart, %d item', 'Cart, %d items', $cart_count, 'ai-zippy-child'), $cart_count)); ?>">
                         <?php echo $render_icon('cart'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                        <span class="site-header__cart-count<?php echo $cart_count > 0 ? '' : ' is-empty'; ?>" data-site-header-cart-count>
+                            <?php echo esc_html((string) $cart_count); ?>
+                        </span>
                     </a>
                 <?php endif; ?>
 

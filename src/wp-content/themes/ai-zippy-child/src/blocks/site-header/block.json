@@ -52,6 +52,12 @@
 		"showCart": { "type": "boolean", "default": true },
 		"enableMegaMenu": { "type": "boolean", "default": true },
 		"megaMenuParentLabel": { "type": "string", "default": "Shop" },
+		"megaMenuAssignments": {
+			"type": "array",
+			"default": [
+				{ "parentLabel": "Shop", "megaMenuId": "shop-default" }
+			]
+		},
 		"megaMenuColumns": {
 			"type": "array",
 			"default": [

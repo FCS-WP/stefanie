@@ -164,6 +164,15 @@
       "type": "string",
       "default": "Shop"
     },
+    "megaMenuAssignments": {
+      "type": "array",
+      "default": [
+        {
+          "parentLabel": "Shop",
+          "megaMenuId": "shop-default"
+        }
+      ]
+    },
     "megaMenuColumns": {
       "type": "array",
       "default": [
