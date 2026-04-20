@@ -1,0 +1,107 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ai-zippy-child/home-age-guide",
+  "version": "1.0.0",
+  "title": "Home - Age Guide",
+  "category": "ai-zippy",
+  "icon": "groups",
+  "description": "Homepage age guide cards with editable images and links.",
+  "keywords": [
+    "home",
+    "age",
+    "guide",
+    "cards"
+  ],
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "wide"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Find The Perfect Toy By Age"
+    },
+    "description": {
+      "type": "string",
+      "default": "Find the perfect toy for every age, occasion & personality."
+    },
+    "paddingTop": {
+      "type": "number",
+      "default": 74
+    },
+    "paddingBottom": {
+      "type": "number",
+      "default": 86
+    },
+    "marginTop": {
+      "type": "number",
+      "default": 0
+    },
+    "marginBottom": {
+      "type": "number",
+      "default": 0
+    },
+    "cards": {
+      "type": "array",
+      "default": [
+        {
+          "title": "0-2 YEARS",
+          "description": "Sensory & developmental toys for babies",
+          "buttonText": "SHOP BABY TOYS",
+          "buttonUrl": "/shop",
+          "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "color": "yellow"
+        },
+        {
+          "title": "3-5 YEARS",
+          "description": "Imaginative play, building & creativity",
+          "buttonText": "SHOP TODDLER TOYS",
+          "buttonUrl": "/shop",
+          "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "color": "green"
+        },
+        {
+          "title": "6-9 YEARS",
+          "description": "STEM, puzzles, games & outdoor sets",
+          "buttonText": "SHOP KIDS TOYS",
+          "buttonUrl": "/shop",
+          "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "color": "blue"
+        },
+        {
+          "title": "10+ YEARS",
+          "description": "Collectibles, strategy & trend-forward gifts",
+          "buttonText": "SHOP TWEEN TOYS",
+          "buttonUrl": "/shop",
+          "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "color": "red"
+        }
+      ]
+    }
+  },
+  "textdomain": "ai-zippy-child",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

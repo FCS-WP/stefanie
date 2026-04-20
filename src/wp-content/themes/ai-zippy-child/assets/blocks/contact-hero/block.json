@@ -1,0 +1,96 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ai-zippy-child/contact-hero",
+  "version": "1.0.0",
+  "title": "Contact - Hero",
+  "category": "ai-zippy",
+  "icon": "megaphone",
+  "description": "Contact page hero with breadcrumb and quick action chips.",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "sectionId": {
+      "type": "string",
+      "default": "contact-hero"
+    },
+    "eyebrow": {
+      "type": "string",
+      "default": "C1 · PAGE HERO"
+    },
+    "breadcrumbHomeLabel": {
+      "type": "string",
+      "default": "Home"
+    },
+    "breadcrumbHomeUrl": {
+      "type": "string",
+      "default": "/"
+    },
+    "breadcrumbCurrentLabel": {
+      "type": "string",
+      "default": "Contact Us"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Get in Touch"
+    },
+    "description": {
+      "type": "string",
+      "default": "Visit us in store, WhatsApp us, or drop us a message - we'd love to hear from you."
+    },
+    "chips": {
+      "type": "array",
+      "default": [
+        {
+          "label": "WhatsApp Us",
+          "icon": "chat",
+          "target": "#contact-whatsapp"
+        },
+        {
+          "label": "Find a Store",
+          "icon": "pin",
+          "target": "#contact-stores"
+        },
+        {
+          "label": "Send a Message",
+          "icon": "mail",
+          "target": "#contact-message"
+        }
+      ]
+    },
+    "paddingTop": {
+      "type": "number",
+      "default": 28
+    },
+    "paddingBottom": {
+      "type": "number",
+      "default": 34
+    },
+    "marginTop": {
+      "type": "number",
+      "default": 0
+    },
+    "marginBottom": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "textdomain": "ai-zippy-child",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,42 @@
+.wp-block-ai-zippy-child-site-popup.site-popup--editor {
+  position: relative;
+
+  .site-popup__overlay {
+    display: none;
+  }
+
+  .site-popup__dialog {
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.16);
+    margin: 0 auto;
+    position: relative;
+    transform: none;
+    left: auto;
+    top: auto;
+    z-index: 1;
+  }
+
+  .site-popup__dialog[hidden] {
+    display: flex;
+  }
+}
+
+.site-popup-editor__media {
+  display: grid;
+  gap: 8px;
+}
+
+.site-popup-editor__media img,
+.site-popup-editor__media div {
+  aspect-ratio: 16 / 8;
+  background: #f6f2eb;
+  border: 1px solid #e7e1d8;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.site-popup-editor__group {
+  border-top: 1px solid #e7e1d8;
+  margin-top: 16px;
+  padding-top: 16px;
+}

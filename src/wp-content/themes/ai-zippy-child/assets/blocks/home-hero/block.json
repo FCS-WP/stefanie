@@ -3,26 +3,21 @@
   "apiVersion": 3,
   "name": "ai-zippy-child/home-hero",
   "version": "1.0.0",
-  "title": "Home Hero",
+  "title": "Home - Hero",
   "category": "ai-zippy",
   "icon": "cover-image",
-  "description": "Homepage hero section with split layout, CTA buttons, stats, and 2x2 material collage.",
+  "description": "Homepage hero with background image, campaign copy, and two CTA buttons.",
   "keywords": [
+    "home",
     "hero",
-    "homepage",
-    "timber",
-    "intro"
+    "banner",
+    "gift"
   ],
   "supports": {
     "html": false,
     "align": [
-      "wide",
       "full"
-    ],
-    "spacing": {
-      "margin": true,
-      "padding": true
-    }
+    ]
   },
   "attributes": {
     "align": {
@@ -31,111 +26,59 @@
     },
     "eyebrow": {
       "type": "string",
-      "default": "Singapore's Timber Specialists"
+      "default": "Singapore's go-to toy & gift store"
     },
     "heading": {
       "type": "string",
-      "default": "Premium Teak\n& Timber Supply"
+      "default": "The Right Gift,\nEvery Time."
     },
     "description": {
       "type": "string",
-      "default": "Sourcing and supplying high-quality, sustainable teak wood for contractors, interior designers, and builders across Singapore and the region. Precision milling. Lasting results."
+      "default": "From first birthdays to last-minute finds - curated toys & gifts that always land well. Online and in-store across Singapore."
     },
-    "primaryBtnText": {
+    "primaryButtonText": {
       "type": "string",
-      "default": "Browse Products"
+      "default": "Shop All Toys"
     },
-    "primaryBtnUrl": {
+    "primaryButtonUrl": {
       "type": "string",
-      "default": "#products"
+      "default": "/shop"
     },
-    "secondaryBtnText": {
+    "secondaryButtonText": {
       "type": "string",
-      "default": "Get a Quote"
+      "default": "Join T&S Points"
     },
-    "secondaryBtnUrl": {
+    "secondaryButtonUrl": {
       "type": "string",
-      "default": "#quote"
+      "default": "/rewards"
     },
-    "statOneValue": {
-      "type": "string",
-      "default": "20+"
-    },
-    "statOneLabel": {
-      "type": "string",
-      "default": "Years Experience"
-    },
-    "statTwoValue": {
-      "type": "string",
-      "default": "500+"
-    },
-    "statTwoLabel": {
-      "type": "string",
-      "default": "Projects Completed"
-    },
-    "statThreeValue": {
-      "type": "string",
-      "default": "B2B"
-    },
-    "statThreeLabel": {
-      "type": "string",
-      "default": "Trade Specialists"
-    },
-    "tileTeakId": {
+    "backgroundImageId": {
       "type": "number",
       "default": 0
     },
-    "tileTeakUrl": {
+    "backgroundImageUrl": {
       "type": "string",
       "default": ""
     },
-    "tileWillowId": {
+    "backgroundImageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "imageObjectFit": {
+      "type": "string",
+      "default": "cover"
+    },
+    "imageObjectPosition": {
+      "type": "string",
+      "default": "center center"
+    },
+    "minHeight": {
       "type": "number",
-      "default": 0
+      "default": 850
     },
-    "tileWillowUrl": {
-      "type": "string",
-      "default": ""
-    },
-    "tileWalnutId": {
+    "overlayOpacity": {
       "type": "number",
-      "default": 0
-    },
-    "tileWalnutUrl": {
-      "type": "string",
-      "default": ""
-    },
-    "tileMapleId": {
-      "type": "number",
-      "default": 0
-    },
-    "tileMapleUrl": {
-      "type": "string",
-      "default": ""
-    },
-    "labelTeak": {
-      "type": "string",
-      "default": "teak"
-    },
-    "labelWillow": {
-      "type": "string",
-      "default": "willow"
-    },
-    "labelWalnut": {
-      "type": "string",
-      "default": "walnut"
-    },
-    "labelMaple": {
-      "type": "string",
-      "default": "maple"
-    },
-    "locationTitle": {
-      "type": "string",
-      "default": "Sungei Kadut"
-    },
-    "locationSubtitle": {
-      "type": "string",
-      "default": "Timber Hub · Singapore"
+      "default": 48
     }
   },
   "textdomain": "ai-zippy-child",

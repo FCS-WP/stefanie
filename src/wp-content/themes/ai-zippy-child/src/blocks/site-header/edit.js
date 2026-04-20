@@ -1,120 +1,467 @@
+import { useEffect, useState } from "@wordpress/element";
 import {
+	useBlockProps,
 	InspectorControls,
-	MediaUpload,
-	MediaUploadCheck,
 	RichText,
 	URLInputButton,
-	useBlockProps,
-	useSettings,
+	MediaUpload,
+	MediaUploadCheck,
 } from "@wordpress/block-editor";
 import {
-	BaseControl,
 	Button,
-	ColorPalette,
 	PanelBody,
-	SelectControl,
+	RangeControl,
 	TextControl,
+	SelectControl,
+	ToggleControl,
+	Spinner,
 } from "@wordpress/components";
-import { useEffect, useMemo, useState } from "@wordpress/element";
 import apiFetch from "@wordpress/api-fetch";
 
-const FALLBACK_ITEMS = [
+const FALLBACK_LINKS = [
 	["home", "Home"],
 	["shop", "Shop"],
+	["gift", "Gift"],
+	["trending", "Trending"],
 	["contact", "Contact Us"],
 ];
 
+const OBJECT_FIT_OPTIONS = [
+	{ label: "Contain", value: "contain" },
+	{ label: "Cover", value: "cover" },
+	{ label: "Fill", value: "fill" },
+	{ label: "Scale Down", value: "scale-down" },
+];
+
+const OBJECT_POSITION_OPTIONS = [
+	{ label: "Center", value: "center center" },
+	{ label: "Left Center", value: "left center" },
+	{ label: "Right Center", value: "right center" },
+	{ label: "Top Center", value: "center top" },
+	{ label: "Bottom Center", value: "center bottom" },
+];
+
+const DEFAULT_MEGA_ITEM = {
+	icon: "✨",
+	label: "Menu item",
+	url: "#",
+	badge: "",
+	highlight: false,
+};
+
+const createMegaColumn = () => ({
+	heading: "COLUMN TITLE",
+	items: [{ ...DEFAULT_MEGA_ITEM }],
+});
+
+const normalizeMegaColumns = (columns) =>
+	(Array.isArray(columns) ? columns : []).map((column) => ({
+		heading: column?.heading || "",
+		items: (Array.isArray(column?.items) ? column.items : []).map((item) => ({
+			...DEFAULT_MEGA_ITEM,
+			...item,
+		})),
+	}));
+
+function MegaMenuPreview({ columns }) {
+	const visibleColumns = normalizeMegaColumns(columns).filter(
+		(column) => column.heading || column.items.length,
+	);
+
+	if (!visibleColumns.length) {
+		return null;
+	}
+
+	return (
+		<div className="site-header__mega">
+			<div className="site-header__mega-grid">
+				{visibleColumns.map((column, columnIndex) => (
+					<div className="site-header__mega-column" key={`${column.heading}-${columnIndex}`}>
+						{column.heading && (
+							<div className="site-header__mega-heading">{column.heading}</div>
+						)}
+						<div className="site-header__mega-list">
+							{column.items.map((item, itemIndex) => (
+								<span
+									className={`site-header__mega-link${item.highlight ? " is-highlighted" : ""}`}
+									key={`${item.label}-${itemIndex}`}
+								>
+									<span className="site-header__mega-icon">{item.icon}</span>
+									<span className="site-header__mega-label">{item.label}</span>
+									{item.badge && (
+										<span className="site-header__mega-badge">{item.badge}</span>
+									)}
+								</span>
+							))}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	);
+}
+
+function SearchIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<circle cx="10.8" cy="10.8" r="6.8" />
+			<path d="m16 16 5 5" />
+		</svg>
+	);
+}
+
+function HeartIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M20.8 4.6a5.2 5.2 0 0 0-7.4 0L12 6l-1.4-1.4a5.2 5.2 0 1 0-7.4 7.4L12 20.8l8.8-8.8a5.2 5.2 0 0 0 0-7.4Z" />
+		</svg>
+	);
+}
+
+function CartIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L20 8H6" />
+			<circle cx="9.5" cy="20" r="1" />
+			<circle cx="17" cy="20" r="1" />
+		</svg>
+	);
+}
+
+function MenuIcon() {
+	return (
+		<svg viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M4 7h16M4 12h16M4 17h16" />
+		</svg>
+	);
+}
+
 export default function Edit({ attributes, setAttributes }) {
-	const [themePalette] = useSettings("color.palette");
 	const [menus, setMenus] = useState([]);
 	const [menuItems, setMenuItems] = useState([]);
-	const blockProps = useBlockProps({
-		className: "nth",
-		style: attributes.backgroundColor
-			? { backgroundColor: attributes.backgroundColor }
-			: undefined,
-	});
+	const [megaMenus, setMegaMenus] = useState([]);
+	const [isLoadingMenus, setIsLoadingMenus] = useState(false);
+	const blockProps = useBlockProps({ className: "site-header" });
 
 	useEffect(() => {
+		let isMounted = true;
+		setIsLoadingMenus(true);
+
 		apiFetch({ path: "/ai-zippy-child/v1/menus" })
-			.then((data) => setMenus(Array.isArray(data) ? data : []))
-			.catch(() => setMenus([]));
+			.then((items) => {
+				if (isMounted) {
+					setMenus(Array.isArray(items) ? items : []);
+				}
+			})
+			.catch(() => {
+				if (isMounted) {
+					setMenus([]);
+				}
+			})
+			.finally(() => {
+				if (isMounted) {
+					setIsLoadingMenus(false);
+				}
+			});
+
+		return () => {
+			isMounted = false;
+		};
 	}, []);
 
 	useEffect(() => {
+		let isMounted = true;
+
+		apiFetch({ path: "/ai-zippy-child/v1/mega-menus" })
+			.then((items) => {
+				if (isMounted) {
+					setMegaMenus(Array.isArray(items) ? items : []);
+				}
+			})
+			.catch(() => {
+				if (isMounted) {
+					setMegaMenus([]);
+				}
+			});
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
+	useEffect(() => {
+		let isMounted = true;
+
 		if (!attributes.menuId) {
 			setMenuItems([]);
 			return;
 		}
 
 		apiFetch({ path: `/ai-zippy-child/v1/menus/${attributes.menuId}/items` })
-			.then((data) => setMenuItems(Array.isArray(data) ? data : []))
-			.catch(() => setMenuItems([]));
+			.then((items) => {
+				if (isMounted) {
+					setMenuItems(Array.isArray(items) ? items : []);
+				}
+			})
+			.catch(() => {
+				if (isMounted) {
+					setMenuItems([]);
+				}
+			});
+
+		return () => {
+			isMounted = false;
+		};
 	}, [attributes.menuId]);
 
-	const navPreviewItems = useMemo(() => {
-		if (attributes.menuId && menuItems.length > 0) {
-			return menuItems
-				.filter((item) => !Number(item.parent))
-				.map((item) => ({
-					id: item.id,
-					label: item.label || "Menu Item",
-				}));
+	const fallbackItems = FALLBACK_LINKS.map(([key, defaultLabel]) => ({
+		id: key,
+		label: attributes[`${key}Label`] || defaultLabel,
+		url: attributes[`${key}Url`] || "#",
+	}));
+	const navItems = attributes.menuId && menuItems.length ? menuItems : fallbackItems;
+	const megaColumns = normalizeMegaColumns(attributes.megaMenuColumns);
+	const megaMenuAssignments = Array.isArray(attributes.megaMenuAssignments)
+		? attributes.megaMenuAssignments
+		: [];
+	const legacyMegaTrigger = (attributes.megaMenuParentLabel || "").trim().toLowerCase();
+	const getAssignedMegaMenu = (label) => {
+		const labelKey = String(label || "").trim().toLowerCase();
+		const assignment = megaMenuAssignments.find(
+			(item) => String(item?.parentLabel || "").trim().toLowerCase() === labelKey,
+		);
+
+		if (!assignment?.megaMenuId) {
+			return null;
 		}
 
-		return FALLBACK_ITEMS.map(([key, placeholder]) => ({
-			id: key,
-			key,
-			label: attributes[`${key}Label`] || placeholder,
-		}));
-	}, [attributes, menuItems]);
+		return megaMenus.find((menu) => menu.id === assignment.megaMenuId) || null;
+	};
+	const updateMegaAssignment = (index, updates) => {
+		const nextAssignments = [...megaMenuAssignments];
+		nextAssignments[index] = {
+			parentLabel: "",
+			megaMenuId: "",
+			...nextAssignments[index],
+			...updates,
+		};
+		setAttributes({ megaMenuAssignments: nextAssignments });
+	};
+	const addMegaAssignment = () => {
+		setAttributes({
+			megaMenuAssignments: [
+				...megaMenuAssignments,
+				{ parentLabel: "", megaMenuId: megaMenus[0]?.id || "" },
+			],
+		});
+	};
+	const removeMegaAssignment = (index) => {
+		setAttributes({
+			megaMenuAssignments: megaMenuAssignments.filter((item, itemIndex) => itemIndex !== index),
+		});
+	};
+	const updateMegaColumn = (columnIndex, updates) => {
+		const nextColumns = [...megaColumns];
+		nextColumns[columnIndex] = {
+			...createMegaColumn(),
+			...nextColumns[columnIndex],
+			...updates,
+		};
+		setAttributes({ megaMenuColumns: nextColumns });
+	};
+	const updateMegaItem = (columnIndex, itemIndex, updates) => {
+		const nextColumns = [...megaColumns];
+		const column = {
+			...createMegaColumn(),
+			...nextColumns[columnIndex],
+		};
+		const nextItems = [...(column.items || [])];
+		nextItems[itemIndex] = {
+			...DEFAULT_MEGA_ITEM,
+			...nextItems[itemIndex],
+			...updates,
+		};
+		nextColumns[columnIndex] = {
+			...column,
+			items: nextItems,
+		};
+		setAttributes({ megaMenuColumns: nextColumns });
+	};
+	const addMegaItem = (columnIndex) => {
+		const nextColumns = [...megaColumns];
+		const column = {
+			...createMegaColumn(),
+			...nextColumns[columnIndex],
+		};
+		nextColumns[columnIndex] = {
+			...column,
+			items: [...(column.items || []), { ...DEFAULT_MEGA_ITEM }],
+		};
+		setAttributes({ megaMenuColumns: nextColumns });
+	};
+	const removeMegaItem = (columnIndex, itemIndex) => {
+		const nextColumns = [...megaColumns];
+		const column = {
+			...createMegaColumn(),
+			...nextColumns[columnIndex],
+		};
+		nextColumns[columnIndex] = {
+			...column,
+			items: (column.items || []).filter((item, index) => index !== itemIndex),
+		};
+		setAttributes({ megaMenuColumns: nextColumns });
+	};
+	const logoImageStyle = {
+		"--site-header-logo-width": `${attributes.logoImageWidth || 320}px`,
+		"--site-header-logo-min-height": `${attributes.logoImageMinHeight || 54}px`,
+		"--site-header-logo-fit": attributes.logoImageObjectFit || "contain",
+		"--site-header-logo-position": attributes.logoImageObjectPosition || "center center",
+	};
+	const logo = (
+		attributes.logoImageUrl ? (
+			<img
+				className="site-header__logo-image"
+				src={attributes.logoImageUrl}
+				alt={attributes.logoImageAlt || ""}
+			/>
+		) : (
+			<>
+				<span>{attributes.logoBefore}</span>
+				<span className="site-header__logo-accent">{attributes.logoAccent}</span>
+				<span>{attributes.logoAfter}</span>
+			</>
+		)
+	);
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title="Logo" initialOpen={true}>
+				<PanelBody title="Announcement Bar" initialOpen={true}>
+					<ToggleControl
+						label="Show announcement bar"
+						checked={attributes.showPromo}
+						onChange={(showPromo) => setAttributes({ showPromo })}
+					/>
+					<TextControl
+						label="Announcement Text"
+						value={attributes.promoText}
+						onChange={(promoText) => setAttributes({ promoText })}
+					/>
+					<p>Announcement Link</p>
+					<URLInputButton
+						url={attributes.promoUrl}
+						onChange={(promoUrl) => setAttributes({ promoUrl })}
+					/>
+				</PanelBody>
+
+				<PanelBody title="Logo" initialOpen={false}>
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={(media) =>
 								setAttributes({
-									logoId: media.id,
-									logoUrl: media.url,
-									logoAlt: media.alt || attributes.logoAlt,
+									logoImageId: media.id,
+									logoImageUrl: media.url,
+									logoImageAlt: media.alt || media.title || "",
 								})
 							}
 							allowedTypes={["image"]}
-							value={attributes.logoId}
+							value={attributes.logoImageId}
 							render={({ open }) => (
-								<div className="nth-editor__picker">
-									{attributes.logoUrl ? (
-										<img src={attributes.logoUrl} alt="" className="nth-editor__thumb" />
+								<div className="site-header-editor__logo-media">
+									{attributes.logoImageUrl ? (
+										<img
+											src={attributes.logoImageUrl}
+											alt=""
+											className="site-header-editor__logo-preview"
+										/>
 									) : (
-										<div className="nth-editor__thumb nth-editor__thumb--empty">No logo selected</div>
+										<div className="site-header-editor__logo-empty">
+											Text logo is active
+										</div>
 									)}
 									<Button variant="secondary" onClick={open}>
-										{attributes.logoUrl ? "Replace logo" : "Select logo"}
+										{attributes.logoImageUrl ? "Replace Logo Image" : "Select Logo Image"}
 									</Button>
-									{attributes.logoUrl ? (
+									{attributes.logoImageUrl && (
 										<Button
 											variant="link"
 											isDestructive
-											onClick={() => setAttributes({ logoId: 0, logoUrl: "" })}
+											onClick={() =>
+												setAttributes({
+													logoImageId: 0,
+													logoImageUrl: "",
+													logoImageAlt: "",
+												})
+											}
 										>
-											Remove
+											Use Text Logo
 										</Button>
-									) : null}
+									)}
 								</div>
 							)}
 						/>
 					</MediaUploadCheck>
+					{attributes.logoImageUrl && (
+						<>
+							<TextControl
+								label="Image Alt Text"
+								value={attributes.logoImageAlt}
+								onChange={(logoImageAlt) => setAttributes({ logoImageAlt })}
+							/>
+							<RangeControl
+								label="Image Width"
+								value={attributes.logoImageWidth}
+								onChange={(logoImageWidth) => setAttributes({ logoImageWidth })}
+								min={80}
+								max={520}
+								step={4}
+							/>
+							<RangeControl
+								label="Image Min Height"
+								value={attributes.logoImageMinHeight}
+								onChange={(logoImageMinHeight) => setAttributes({ logoImageMinHeight })}
+								min={24}
+								max={140}
+								step={2}
+							/>
+							<SelectControl
+								label="Object Fit"
+								value={attributes.logoImageObjectFit}
+								options={OBJECT_FIT_OPTIONS}
+								onChange={(logoImageObjectFit) => setAttributes({ logoImageObjectFit })}
+							/>
+							<SelectControl
+								label="Object Position"
+								value={attributes.logoImageObjectPosition}
+								options={OBJECT_POSITION_OPTIONS}
+								onChange={(logoImageObjectPosition) => setAttributes({ logoImageObjectPosition })}
+							/>
+						</>
+					)}
 					<TextControl
-						label="Logo Alt Text"
-						value={attributes.logoAlt}
-						onChange={(value) => setAttributes({ logoAlt: value })}
+						label="First Word"
+						value={attributes.logoBefore}
+						onChange={(logoBefore) => setAttributes({ logoBefore })}
+					/>
+					<TextControl
+						label="Accent"
+						value={attributes.logoAccent}
+						onChange={(logoAccent) => setAttributes({ logoAccent })}
+					/>
+					<TextControl
+						label="Last Word"
+						value={attributes.logoAfter}
+						onChange={(logoAfter) => setAttributes({ logoAfter })}
+					/>
+					<p>Logo Link</p>
+					<URLInputButton
+						url={attributes.logoUrl}
+						onChange={(logoUrl) => setAttributes({ logoUrl })}
 					/>
 				</PanelBody>
 
-				<PanelBody title="Menu" initialOpen={true}>
+				<PanelBody title="Navigation" initialOpen={false}>
+					{isLoadingMenus && <Spinner />}
 					<SelectControl
 						label="WordPress Menu"
 						value={String(attributes.menuId || 0)}
@@ -125,19 +472,17 @@ export default function Edit({ attributes, setAttributes }) {
 								value: String(menu.id),
 							})),
 						]}
-						onChange={(value) => setAttributes({ menuId: Number(value) })}
-						help="Select a WordPress menu. If none is selected, the fallback links below are used."
+						onChange={(menuId) => setAttributes({ menuId: Number(menuId) })}
+						help="When selected, the frontend uses this WordPress menu. Otherwise it uses the fallback links below."
 					/>
-				</PanelBody>
-
-				<PanelBody title="Fallback Links" initialOpen={false}>
-					{FALLBACK_ITEMS.map(([key, placeholder]) => (
-						<div key={key} className="nth-editor__link-group">
+					{FALLBACK_LINKS.map(([key, defaultLabel]) => (
+						<div className="site-header-editor__link" key={key}>
 							<TextControl
-								label={`${placeholder} Label`}
+								label={`${defaultLabel} Label`}
 								value={attributes[`${key}Label`]}
 								onChange={(value) => setAttributes({ [`${key}Label`]: value })}
 							/>
+							<p>{defaultLabel} Link</p>
 							<URLInputButton
 								url={attributes[`${key}Url`]}
 								onChange={(value) => setAttributes({ [`${key}Url`]: value })}
@@ -146,85 +491,142 @@ export default function Edit({ attributes, setAttributes }) {
 					))}
 				</PanelBody>
 
-				<PanelBody title="Colors" initialOpen={false}>
-					<BaseControl label="Header Background">
-						<ColorPalette
-							colors={themePalette || []}
-							value={attributes.backgroundColor}
-							onChange={(value) => setAttributes({ backgroundColor: value || "" })}
-							clearable={true}
-						/>
-					</BaseControl>
+				<PanelBody title="Mega Menu" initialOpen={false}>
+					<ToggleControl
+						label="Enable mega menu"
+						checked={attributes.enableMegaMenu}
+						onChange={(enableMegaMenu) => setAttributes({ enableMegaMenu })}
+					/>
+					<p>
+						Create mega menus in Appearance → Mega Menus, then assign them to
+						header menu labels here.
+					</p>
+
+					{megaMenuAssignments.map((assignment, index) => (
+						<div className="site-header-editor__mega-assignment" key={index}>
+							<TextControl
+								label="Parent menu label"
+								value={assignment.parentLabel || ""}
+								onChange={(parentLabel) => updateMegaAssignment(index, { parentLabel })}
+								help="Must match a top-level header menu label, for example Shop."
+							/>
+							<SelectControl
+								label="Mega menu"
+								value={assignment.megaMenuId || ""}
+								options={[
+									{ label: "Select mega menu", value: "" },
+									...megaMenus.map((menu) => ({
+										label: menu.title,
+										value: menu.id,
+									})),
+								]}
+								onChange={(megaMenuId) => updateMegaAssignment(index, { megaMenuId })}
+							/>
+							<Button
+								variant="link"
+								isDestructive
+								onClick={() => removeMegaAssignment(index)}
+							>
+								Remove assignment
+							</Button>
+						</div>
+					))}
+
+					<Button variant="secondary" onClick={addMegaAssignment}>
+						Add mega menu assignment
+					</Button>
 				</PanelBody>
 
-				<PanelBody title="Enquiry Button" initialOpen={false}>
+				<PanelBody title="Actions" initialOpen={false}>
+					<ToggleControl
+						label="Show search icon"
+						checked={attributes.showSearch}
+						onChange={(showSearch) => setAttributes({ showSearch })}
+					/>
+					<p>Search Link</p>
+					<URLInputButton
+						url={attributes.searchUrl}
+						onChange={(searchUrl) => setAttributes({ searchUrl })}
+					/>
+					<ToggleControl
+						label="Show wishlist icon"
+						checked={attributes.showWishlist}
+						onChange={(showWishlist) => setAttributes({ showWishlist })}
+					/>
+					<p>Wishlist Link</p>
+					<URLInputButton
+						url={attributes.wishlistUrl}
+						onChange={(wishlistUrl) => setAttributes({ wishlistUrl })}
+					/>
+					<ToggleControl
+						label="Show cart icon"
+						checked={attributes.showCart}
+						onChange={(showCart) => setAttributes({ showCart })}
+					/>
+					<p>Cart Link</p>
+					<URLInputButton
+						url={attributes.cartUrl}
+						onChange={(cartUrl) => setAttributes({ cartUrl })}
+					/>
 					<TextControl
 						label="Button Text"
 						value={attributes.buttonText}
-						onChange={(value) => setAttributes({ buttonText: value })}
+						onChange={(buttonText) => setAttributes({ buttonText })}
 					/>
+					<p>Button Link</p>
 					<URLInputButton
 						url={attributes.buttonUrl}
-						onChange={(value) => setAttributes({ buttonUrl: value })}
+						onChange={(buttonUrl) => setAttributes({ buttonUrl })}
 					/>
 				</PanelBody>
 			</InspectorControls>
 
 			<header {...blockProps}>
-				<div className="nth__inner">
-					<div className="nth__brand">
-						{attributes.logoUrl ? (
-							<img src={attributes.logoUrl} alt="" className="nth__logo" />
-						) : (
-							<div className="nth__logo nth__logo--placeholder">Logo</div>
-						)}
-					</div>
-
-					<div className="nth__desktop">
-						<nav className="nth__nav">
-							{navPreviewItems.map((item) =>
-								item.key ? (
-									<RichText
-										key={item.id}
-										tagName="span"
-										className="nth__nav-link"
-										value={attributes[`${item.key}Label`]}
-										onChange={(value) => setAttributes({ [`${item.key}Label`]: value })}
-										placeholder={item.label}
-									/>
-								) : (
-									<span key={item.id} className="nth__nav-link">
-										{item.label}
-									</span>
-								)
-							)}
-						</nav>
+				{attributes.showPromo && (
+					<div className="site-header__promo">
 						<RichText
 							tagName="span"
-							className="nth__cta"
-							value={attributes.buttonText}
-							onChange={(value) => setAttributes({ buttonText: value })}
-							placeholder="Enquiry Now"
+							value={attributes.promoText}
+							onChange={(promoText) => setAttributes({ promoText })}
+							placeholder="Announcement text"
 						/>
 					</div>
+				)}
+				<div className="site-header__main">
+					<div className="site-header__inner">
+						<div className="site-header__logo" style={logoImageStyle}>{logo}</div>
+						<nav className="site-header__nav" aria-label="Preview navigation">
+							{navItems.map((item) => {
+								const assignedMegaMenu = getAssignedMegaMenu(item.label);
+								const hasSavedMega = attributes.enableMegaMenu && assignedMegaMenu;
+								const hasLegacyMega =
+									attributes.enableMegaMenu &&
+									!assignedMegaMenu &&
+									legacyMegaTrigger &&
+									String(item.label || "").trim().toLowerCase() === legacyMegaTrigger;
+								const previewColumns = assignedMegaMenu?.columns || megaColumns;
 
-					<button type="button" className="nth__toggle" aria-expanded="false">
-						<span />
-						<span />
-						<span />
-					</button>
-				</div>
-
-				<div className="nth__offcanvas-preview">
-					<p className="nth__offcanvas-title">Mobile Menu Preview</p>
-					<nav className="nth__offcanvas-nav">
-						{navPreviewItems.map((item) => (
-							<span key={item.id} className="nth__offcanvas-link">
-								{item.label}
-							</span>
-						))}
-					</nav>
-					<span className="nth__offcanvas-cta">{attributes.buttonText}</span>
+								return (
+									<span
+										className={`site-header__nav-item${hasSavedMega || hasLegacyMega ? " site-header__nav-item--mega" : ""}`}
+										key={item.id}
+									>
+										<span className="site-header__nav-link">
+											{item.label}
+										</span>
+										{(hasSavedMega || hasLegacyMega) && <MegaMenuPreview columns={previewColumns} />}
+									</span>
+								);
+							})}
+						</nav>
+						<div className="site-header__actions">
+							{attributes.showSearch && <span className="site-header__icon"><SearchIcon /></span>}
+							{attributes.showWishlist && <span className="site-header__icon"><HeartIcon /></span>}
+							{attributes.showCart && <span className="site-header__icon"><CartIcon /></span>}
+							<span className="site-header__cta">{attributes.buttonText}</span>
+							<span className="site-header__menu-icon"><MenuIcon /></span>
+						</div>
+					</div>
 				</div>
 			</header>
 		</>

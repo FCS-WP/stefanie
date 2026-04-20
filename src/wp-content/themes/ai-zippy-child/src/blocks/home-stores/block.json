@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/home-stores",
+	"version": "1.0.0",
+	"title": "Home - Stores",
+	"category": "ai-zippy",
+	"icon": "store",
+	"description": "Homepage store location cards.",
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"heading": { "type": "string", "default": "3 Stores Across Singapore" },
+		"stores": {
+			"type": "array",
+			"default": [
+				{ "title": "Woodlands Civic", "address": "900 S. Woodlands #02-03<br>+65 698 200<br>10:30am-9:30pm", "buttonText": "GET DIRECTION", "buttonUrl": "#", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+				{ "title": "Paya Lebar Quarter (PLQ)", "address": "10 Paya Lebar Rd #03-16<br>+65 6970 1978<br>10:45am-9:30pm", "buttonText": "GET DIRECTION", "buttonUrl": "#", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+				{ "title": "EastPoint Mall", "address": "3 Simei Street 6 #02-25<br>+65 6694 8591<br>10:45am-9:30pm", "buttonText": "GET DIRECTION", "buttonUrl": "#", "imageId": 0, "imageUrl": "", "imageAlt": "" }
+			]
+		},
+		"paddingTop": { "type": "number", "default": 74 },
+		"paddingBottom": { "type": "number", "default": 90 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 }
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

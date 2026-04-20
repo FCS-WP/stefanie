@@ -1,0 +1,21 @@
+.wp-block-ai-zippy-child-home-favourites {
+  .block-editor-rich-text__editable {
+    color: inherit;
+  }
+
+  .home-favourites__track {
+    transform: none !important;
+  }
+}
+
+.home-favourites-editor__group {
+  border-top: 1px solid #e7e1d8;
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.home-favourites-editor__hint {
+  color: #6b7280;
+  font-size: 12px;
+  margin: 0 0 12px;
+}

@@ -1,0 +1,119 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/home-occasions",
+	"version": "1.0.0",
+	"title": "Home - Occasions",
+	"category": "ai-zippy",
+	"icon": "heart",
+	"description": "Homepage occasion cards for gift shopping moments.",
+	"keywords": ["home", "occasions", "gifts", "cards"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"eyebrow": { "type": "string", "default": "WHAT'S THE OCCASION?" },
+		"heading": { "type": "string", "default": "The Right Gift, for Every Moment." },
+		"description": {
+			"type": "string",
+			"default": "From baby showers to big birthdays - find something they'll actually remember."
+		},
+		"paddingTop": { "type": "number", "default": 78 },
+		"paddingBottom": { "type": "number", "default": 66 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 },
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Birthday Party",
+					"description": "Perfect for your child's friend",
+					"buttonText": "SHOP",
+					"buttonUrl": "/shop",
+					"color": "blue",
+					"art": "cake",
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": ""
+				},
+				{
+					"title": "Just Because",
+					"description": "Little treats for fun",
+					"buttonText": "SHOP",
+					"buttonUrl": "/shop",
+					"color": "red",
+					"art": "gift",
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": ""
+				},
+				{
+					"title": "Festive Gifting",
+					"description": "CNY . Christmas . Hari Raya",
+					"buttonText": "SHOP",
+					"buttonUrl": "/shop",
+					"color": "green",
+					"art": "sparkles",
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": ""
+				},
+				{
+					"title": "No time?",
+					"description": "We've got you covered",
+					"buttonText": "SHOP",
+					"buttonUrl": "/shop",
+					"color": "yellow",
+					"art": "present",
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": ""
+				},
+				{
+					"title": "Baby Shower",
+					"description": "Welcome the little one in style",
+					"buttonText": "SHOP",
+					"buttonUrl": "/shop",
+					"color": "green",
+					"art": "balloons",
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": ""
+				},
+				{
+					"title": "1st Month",
+					"description": "A milestone worth celebrating",
+					"buttonText": "SHOP",
+					"buttonUrl": "/shop",
+					"color": "blue",
+					"art": "cupcake",
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": ""
+				},
+				{
+					"title": "Graduation",
+					"description": "First day of school and beyond",
+					"buttonText": "SHOP",
+					"buttonUrl": "/shop",
+					"color": "red",
+					"art": "hat",
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": ""
+				}
+			]
+		}
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

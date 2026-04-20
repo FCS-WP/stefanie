@@ -1,13 +1,14 @@
 .wp-block-ai-zippy-child-contact-section {
-  --cts-bg: var(--wp--preset--color--warm-white, #f4f0e8);
-  --cts-panel: var(--wp--preset--color--cream, #faf8f4);
-  --cts-rust: var(--wp--preset--color--rust, #c17a54);
-  --cts-bark: var(--wp--preset--color--bark, #3d2b1f);
-  --cts-bark-mid: var(--wp--preset--color--bark-mid, #6b4c38);
-  --cts-muted: var(--wp--preset--color--text-muted, #8b7060);
-  --cts-border: var(--wp--preset--color--border, #ddd5c8);
-  --cts-serif: var(--wp--preset--font-family--playfair-display, "Playfair Display", sans-serif);
-  --cts-sans: var(--wp--preset--font-family--dm-sans, "DM Sans", sans-serif);
+  --cts-bg: var(--wp--preset--color--warm-cream, #fffbf4);
+  --cts-panel: var(--wp--preset--color--white, #ffffff);
+  --cts-accent: var(--wp--preset--color--peach-pop, #ff8c69);
+  --cts-cta: var(--wp--preset--color--sunshine, #ffe66d);
+  --cts-success: var(--wp--preset--color--spearmint, #45b69c);
+  --cts-text: var(--wp--preset--color--deep-ink, #2c3e7a);
+  --cts-muted: var(--wp--preset--color--text-muted, #6f6f77);
+  --cts-border: var(--wp--preset--color--border, #e7e1d8);
+  --cts-display: var(--wp--preset--font-family--syne, "Syne", sans-serif);
+  --cts-sans: var(--wp--preset--font-family--bricolage-grotesque, "Bricolage Grotesque", sans-serif);
 
   background: var(--cts-bg);
   font-family: var(--cts-sans);
@@ -16,8 +17,8 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(320px, 0.95fr);
     gap: 0;
-    max-width: 100%;
-    padding: 7%;
+    max-width: var(--az-section-max-width, 1735px);
+    padding: 7% var(--az-section-x-padding, clamp(24px, 7vw, 96px));
     margin: 0 auto;
   }
 
@@ -39,7 +40,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    color: var(--cts-rust);
+    color: var(--cts-accent);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 3px;
@@ -61,8 +62,8 @@
 
   .cts__title {
     margin: 0 0 24px;
-    color: var(--cts-bark);
-    font-family: var(--cts-serif);
+    color: var(--cts-text);
+    font-family: var(--cts-display);
     font-size: clamp(34px, 3.3vw, 50px);
     font-weight: 700;
     line-height: 1.08;
@@ -97,13 +98,13 @@
   }
 
   .cts__location-name {
-    color: var(--cts-bark);
+    color: var(--cts-text);
     font-size: 15px;
     font-weight: 500;
   }
 
   .cts__location-address {
-    color: var(--cts-bark-mid);
+    color: var(--cts-muted);
     font-size: 14px;
     margin-top: 4px;
   }
@@ -164,12 +165,12 @@
   }
 
   .cts__map-title {
-    color: var(--cts-bark-mid);
+    color: var(--cts-muted);
     font-size: 14px;
   }
 
   .cts__map-subtitle {
-    color: var(--cts-bark-mid);
+    color: var(--cts-muted);
     font-size: 14px;
     margin-top: 2px;
   }
@@ -177,7 +178,7 @@
   .cts__map-link {
     display: inline-block;
     margin-top: 10px;
-    color: var(--cts-rust);
+    color: var(--cts-accent);
     font-size: 13px;
     text-decoration: none;
   }
@@ -197,7 +198,7 @@
 
   .cts__hours-label,
   .cts__hours-value {
-    color: var(--cts-bark-mid);
+    color: var(--cts-muted);
     font-size: 14px;
   }
 
@@ -222,7 +223,7 @@
     margin-top: 3px;
     flex-shrink: 0;
     border-radius: 3px;
-    background: var(--wp--preset--color--sage, #7a9b5c);
+    background: var(--cts-success);
     position: relative;
 
     &::after {
@@ -239,7 +240,7 @@
   }
 
   .cts__trade-text {
-    color: var(--cts-bark-mid);
+    color: var(--cts-muted);
     font-size: 14px;
     line-height: 1.6;
   }
@@ -251,7 +252,7 @@
     min-height: 44px;
     padding: 12px 20px;
     border-radius: 2px;
-    background: var(--cts-bark);
+    background: var(--cts-text);
     color: var(--cts-bg);
     font-size: 13px;
     font-weight: 600;
@@ -259,7 +260,7 @@
     transition: all 0.25s;
 
     &:hover {
-      background: var(--cts-rust);
+      background: var(--cts-accent);
       transform: translateY(-2px);
     }
   }
@@ -278,7 +279,7 @@
 
     label,
     .frm_primary_label {
-      color: var(--cts-bark);
+      color: var(--cts-text);
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 2px;
@@ -293,7 +294,7 @@
       border: 1px solid var(--cts-border);
       border-radius: 0;
       background: white;
-      color: var(--cts-bark-mid);
+      color: var(--cts-text);
       font-family: var(--cts-sans);
       font-size: 14px;
       box-shadow: none;
@@ -312,8 +313,8 @@
       padding: 12px 18px;
       border: none;
       border-radius: 2px;
-      background: var(--cts-rust);
-      color: white;
+      background: var(--cts-cta);
+      color: var(--cts-text);
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 2px;
@@ -336,7 +337,7 @@
   @media (max-width: 640px) {
     .cts__form-col,
     .cts__info-col {
-      padding: 36px 24px;
+      padding: 36px var(--az-section-x-padding, 24px);
     }
 
     .cts__hours-row {

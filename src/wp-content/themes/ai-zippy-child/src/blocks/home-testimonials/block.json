@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/home-testimonials",
+	"version": "1.0.0",
+	"title": "Home - Testimonials",
+	"category": "ai-zippy",
+	"icon": "testimonial",
+	"description": "Homepage parent reviews and social profile feature.",
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"eyebrow": { "type": "string", "default": "CRUMBS OF TRUTH" },
+		"heading": { "type": "string", "default": "What Parents<br>Are Saying" },
+		"leftShortcode": { "type": "string", "default": "" },
+		"viewMoreText": { "type": "string", "default": "VIEW MORE" },
+		"viewMoreUrl": { "type": "string", "default": "/reviews" },
+		"followText": { "type": "string", "default": "FOLLOW US" },
+		"followUrl": { "type": "string", "default": "https://www.instagram.com/" },
+		"socialImageId": { "type": "number", "default": 0 },
+		"socialImageUrl": { "type": "string", "default": "" },
+		"socialImageAlt": { "type": "string", "default": "" },
+		"paddingTop": { "type": "number", "default": 76 },
+		"paddingBottom": { "type": "number", "default": 88 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 },
+		"reviews": {
+			"type": "array",
+			"default": [
+				{
+					"rating": 5,
+					"text": "Found the perfect birthday gift here. The staff actually knew what they were talking about!",
+					"name": "Sarah L.",
+					"location": "Woodlands"
+				},
+				{
+					"rating": 4,
+					"text": "Kids went crazy for the magnetic tiles. Ordered online, arrived in 2 days. 10/10 will repeat.",
+					"name": "Marcus T.",
+					"location": "Tampines"
+				}
+			]
+		}
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

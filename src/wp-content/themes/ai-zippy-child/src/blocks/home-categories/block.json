@@ -1,0 +1,49 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/home-categories",
+	"version": "1.0.0",
+	"title": "Home - Categories",
+	"category": "ai-zippy",
+	"icon": "category",
+	"description": "Dynamic homepage product category carousel.",
+	"keywords": ["home", "categories", "products", "carousel"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"eyebrow": { "type": "string", "default": "BROWSE OUR COLLECTION" },
+		"heading": { "type": "string", "default": "Shop by Category" },
+		"description": {
+			"type": "string",
+			"default": "Find the perfect toy for every age, occasion & personality."
+		},
+		"includeCategoryIds": { "type": "array", "default": [] },
+		"excludeCategoryIds": { "type": "array", "default": [] },
+		"maxCategories": { "type": "number", "default": 12 },
+		"hideEmpty": { "type": "boolean", "default": false },
+		"orderBy": { "type": "string", "default": "menu_order" },
+		"order": { "type": "string", "default": "ASC" },
+		"slidesToShow": { "type": "number", "default": 6 },
+		"tabletSlidesToShow": { "type": "number", "default": 3 },
+		"mobileSlidesToShow": { "type": "number", "default": 1 },
+		"showArrows": { "type": "boolean", "default": true },
+		"showDots": { "type": "boolean", "default": false },
+		"paddingTop": { "type": "number", "default": 70 },
+		"paddingBottom": { "type": "number", "default": 86 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 }
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

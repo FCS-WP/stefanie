@@ -6,73 +6,43 @@
 		"color": {
 			"palette": [
 				{
-					"slug": "rust",
-					"color": "#C17A54",
-					"name": "Rust"
+					"slug": "lollipop-red",
+					"color": "#FF6B6B",
+					"name": "Lollipop Red - Primary Hero"
 				},
 				{
-					"slug": "rust-dark",
-					"color": "#A0603D",
-					"name": "Rust Dark"
+					"slug": "sunshine",
+					"color": "#FFE66D",
+					"name": "Sunshine - Accent / CTA"
 				},
 				{
-					"slug": "sage",
-					"color": "#7A9B5C",
-					"name": "Sage"
+					"slug": "spearmint",
+					"color": "#45B69C",
+					"name": "Spearmint - Secondary Accent"
 				},
 				{
-					"slug": "sage-light",
-					"color": "#C8DEBB",
-					"name": "Sage Light"
+					"slug": "deep-ink",
+					"color": "#2C3E7A",
+					"name": "Deep Ink - Text / Nav"
 				},
 				{
-					"slug": "tan",
-					"color": "#C9A96E",
-					"name": "Tan"
+					"slug": "warm-cream",
+					"color": "#FFFBF4",
+					"name": "Warm Cream - Page Background"
 				},
 				{
-					"slug": "tan-light",
-					"color": "#E8D5B0",
-					"name": "Tan Light"
-				},
-				{
-					"slug": "cream",
-					"color": "#FAF8F4",
-					"name": "Cream"
-				},
-				{
-					"slug": "warm-white",
-					"color": "#F4F0E8",
-					"name": "Warm White"
-				},
-				{
-					"slug": "linen",
-					"color": "#EDE8DC",
-					"name": "Linen"
-				},
-				{
-					"slug": "bark",
-					"color": "#3D2B1F",
-					"name": "Bark"
-				},
-				{
-					"slug": "bark-mid",
-					"color": "#6B4C38",
-					"name": "Bark Mid"
-				},
-				{
-					"slug": "bark-light",
-					"color": "#9B7460",
-					"name": "Bark Light"
+					"slug": "peach-pop",
+					"color": "#FF8C69",
+					"name": "Peach Pop - Tertiary / Tags"
 				},
 				{
 					"slug": "text-muted",
-					"color": "#8B7060",
+					"color": "#6F6F77",
 					"name": "Text Muted"
 				},
 				{
 					"slug": "border",
-					"color": "#DDD5C8",
+					"color": "#E7E1D8",
 					"name": "Border"
 				},
 				{
@@ -85,6 +55,21 @@
 		"typography": {
 			"fontFamilies": [
 				{
+					"fontFamily": "\"Bricolage Grotesque\", sans-serif",
+					"slug": "bricolage-grotesque",
+					"name": "Bricolage Grotesque",
+					"fontFace": [
+						{
+							"fontFamily": "Bricolage Grotesque",
+							"fontStyle": "normal",
+							"fontWeight": "400 800",
+							"src": [
+								"file:./src/fonts/bricolage-grotesque.ttf"
+							]
+						}
+					]
+				},
+				{
 					"fontFamily": "\"DM Sans\", sans-serif",
 					"slug": "dm-sans",
 					"name": "DM Sans",
@@ -92,80 +77,32 @@
 						{
 							"fontFamily": "DM Sans",
 							"fontStyle": "normal",
-							"fontWeight": "300",
+							"fontWeight": "300 500",
 							"src": [
-								"file:./src/fonts/dm-sans-300.ttf"
+								"file:./src/fonts/dm-sans.ttf"
 							]
 						},
 						{
 							"fontFamily": "DM Sans",
-							"fontStyle": "normal",
+							"fontStyle": "italic",
 							"fontWeight": "400",
 							"src": [
-								"file:./src/fonts/dm-sans-400.ttf"
-							]
-						},
-						{
-							"fontFamily": "DM Sans",
-							"fontStyle": "normal",
-							"fontWeight": "500",
-							"src": [
-								"file:./src/fonts/dm-sans-500.ttf"
-							]
-						},
-						{
-							"fontFamily": "DM Sans",
-							"fontStyle": "normal",
-							"fontWeight": "600",
-							"src": [
-								"file:./src/fonts/dm-sans-600.ttf"
+								"file:./src/fonts/dm-sans-italic.ttf"
 							]
 						}
 					]
 				},
 				{
-					"fontFamily": "\"Playfair Display\", sans-serif",
-					"slug": "playfair-display",
-					"name": "Playfair Display",
+					"fontFamily": "\"Syne\", sans-serif",
+					"slug": "syne",
+					"name": "Syne",
 					"fontFace": [
 						{
-							"fontFamily": "Playfair Display",
+							"fontFamily": "Syne",
 							"fontStyle": "normal",
-							"fontWeight": "400",
+							"fontWeight": "700 800",
 							"src": [
-								"file:./src/fonts/playfair-display-400.ttf"
-							]
-						},
-						{
-							"fontFamily": "Playfair Display",
-							"fontStyle": "normal",
-							"fontWeight": "600",
-							"src": [
-								"file:./src/fonts/playfair-display-600.ttf"
-							]
-						},
-						{
-							"fontFamily": "Playfair Display",
-							"fontStyle": "normal",
-							"fontWeight": "700",
-							"src": [
-								"file:./src/fonts/playfair-display-700.ttf"
-							]
-						},
-						{
-							"fontFamily": "Playfair Display",
-							"fontStyle": "italic",
-							"fontWeight": "400",
-							"src": [
-								"file:./src/fonts/playfair-display-400-italic.ttf"
-							]
-						},
-						{
-							"fontFamily": "Playfair Display",
-							"fontStyle": "italic",
-							"fontWeight": "600",
-							"src": [
-								"file:./src/fonts/playfair-display-600-italic.ttf"
+								"file:./src/fonts/syne.ttf"
 							]
 						}
 					]
@@ -211,23 +148,89 @@
 		},
 		"layout": {
 			"contentSize": "1200px",
-			"wideSize": "1410px"
+			"wideSize": "1735px"
 		}
 	},
 	"styles": {
 		"color": {
-			"background": "var(--wp--preset--color--cream)",
-			"text": "var(--wp--preset--color--bark)"
+			"background": "var(--wp--preset--color--warm-cream)",
+			"text": "var(--wp--preset--color--deep-ink)"
 		},
 		"typography": {
-			"fontFamily": "var(--wp--preset--font-family--dm-sans)",
+			"fontFamily": "var(--wp--preset--font-family--bricolage-grotesque)",
 			"fontSize": "var(--wp--preset--font-size--medium)",
 			"lineHeight": "1.6"
 		},
 		"elements": {
 			"heading": {
 				"typography": {
-					"fontFamily": "var(--wp--preset--font-family--playfair-display)"
+					"fontFamily": "var(--wp--preset--font-family--syne)",
+					"fontWeight": "800",
+					"lineHeight": "1.05"
+				}
+			},
+			"h1": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--syne)",
+					"fontWeight": "800",
+					"lineHeight": "1"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--syne)",
+					"fontWeight": "800",
+					"lineHeight": "1.05"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--syne)",
+					"fontWeight": "700",
+					"lineHeight": "1.12"
+				}
+			},
+			"h4": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--syne)",
+					"fontWeight": "700",
+					"lineHeight": "1.18"
+				}
+			},
+			"h5": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--syne)",
+					"fontWeight": "700",
+					"lineHeight": "1.2"
+				}
+			},
+			"h6": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--syne)",
+					"fontWeight": "700",
+					"lineHeight": "1.2"
+				}
+			},
+			"button": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--dm-sans)",
+					"fontWeight": "500",
+					"lineHeight": "1.1"
+				}
+			},
+			"caption": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--dm-sans)",
+					"fontSize": "var(--wp--preset--font-size--small)",
+					"fontWeight": "400",
+					"lineHeight": "1.45"
+				}
+			},
+			"cite": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--dm-sans)",
+					"fontStyle": "italic",
+					"fontWeight": "400"
 				}
 			}
 		}

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ai-zippy-child/contact-locations",
+  "version": "1.0.0",
+  "title": "Contact - Locations",
+  "category": "ai-zippy",
+  "icon": "location-alt",
+  "description": "Contact page store cards with directions links and map shortcode area.",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "sectionId": {
+      "type": "string",
+      "default": "contact-stores"
+    },
+    "eyebrow": {
+      "type": "string",
+      "default": "C2 · STORE LOCATIONS + MAP"
+    },
+    "note": {
+      "type": "string",
+      "default": "Note: Hillion Mall outlet is closing May 2026 - excluded from website. Update if timeline changes."
+    },
+    "mapSectionId": {
+      "type": "string",
+      "default": "contact-map"
+    },
+    "mapHeading": {
+      "type": "string",
+      "default": "Store Map"
+    },
+    "mapShortcode": {
+      "type": "string",
+      "default": ""
+    },
+    "mapHtmlOne": {
+      "type": "string",
+      "default": ""
+    },
+    "mapHtmlTwo": {
+      "type": "string",
+      "default": ""
+    },
+    "mapHtmlThree": {
+      "type": "string",
+      "default": ""
+    },
+    "mapPlaceholder": {
+      "type": "string",
+      "default": "[ Google Maps Embed - 3 Outlet Pins ]"
+    },
+    "stores": {
+      "type": "array",
+      "default": [
+        {
+          "name": "Woodlands Civic Centre",
+          "address": "900 South Woodlands Drive #02-03, Singapore 730900",
+          "phone": "+65 6892 8001",
+          "hours": "10:30AM - 9:30PM daily",
+          "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Woodlands%20Civic%20Centre%20900%20South%20Woodlands%20Drive%20%2302-03%20Singapore%20730900"
+        },
+        {
+          "name": "Paya Lebar Quarter (PLQ)",
+          "address": "10 Paya Lebar Road #03-18, Singapore 409057",
+          "phone": "+65 6970 1978",
+          "hours": "10:45AM - 9:30PM daily",
+          "directionsUrl": "https://www.google.com/maps/search/?api=1&query=Paya%20Lebar%20Quarter%2010%20Paya%20Lebar%20Road%20%2303-18%20Singapore%20409057"
+        },
+        {
+          "name": "EastPoint Mall",
+          "address": "3 Simei Street 6 #02-25, Singapore 528833",
+          "phone": "+65 6694 8591",
+          "hours": "10:45AM - 9:30PM daily",
+          "directionsUrl": "https://www.google.com/maps/search/?api=1&query=EastPoint%20Mall%203%20Simei%20Street%206%20%2302-25%20Singapore%20528833"
+        }
+      ]
+    },
+    "paddingTop": {
+      "type": "number",
+      "default": 36
+    },
+    "paddingBottom": {
+      "type": "number",
+      "default": 70
+    },
+    "marginTop": {
+      "type": "number",
+      "default": 0
+    },
+    "marginBottom": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "textdomain": "ai-zippy-child",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,45 @@
+.wp-block-ai-zippy-child-site-footer {
+  .site-footer__link,
+  .site-footer__contact-row,
+  .site-footer__legal-link {
+    pointer-events: none;
+  }
+
+  .block-editor-rich-text__editable {
+    color: inherit;
+  }
+}
+
+.site-footer-editor__link {
+  border-top: 1px solid #e7e1d8;
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.site-footer-editor__logo-media {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.site-footer-editor__logo-preview,
+.site-footer-editor__logo-empty {
+  align-items: center;
+  background: #fffbf4;
+  border: 1px solid #e7e1d8;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  min-height: 84px;
+  padding: 12px;
+  width: 100%;
+}
+
+.site-footer-editor__logo-preview {
+  object-fit: contain;
+}
+
+.site-footer-editor__logo-empty {
+  color: #6f6f77;
+  font-size: 12px;
+}

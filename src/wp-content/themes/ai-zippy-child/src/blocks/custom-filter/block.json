@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/custom-filter",
+	"version": "1.0.0",
+	"title": "Custom Filter",
+	"category": "ai-zippy",
+	"icon": "filter",
+	"description": "Editable WooCommerce filter form with dynamic price ranges and taxonomy sections.",
+	"keywords": ["filter", "shop", "products", "woocommerce"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"title": { "type": "string", "default": "Filter" },
+		"actionUrl": { "type": "string", "default": "" },
+		"submitText": { "type": "string", "default": "Apply Filters" },
+		"clearText": { "type": "string", "default": "Clear" },
+		"showClear": { "type": "boolean", "default": true },
+		"sections": {
+			"type": "array",
+			"default": [
+				{
+					"id": "price",
+					"title": "Price",
+					"source": "price",
+					"open": true,
+					"rangeCount": 4,
+					"includeIds": [],
+					"excludeIds": [],
+					"hierarchical": false
+				}
+			]
+		}
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

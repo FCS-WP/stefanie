@@ -1,0 +1,122 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ai-zippy-child/home-favourites",
+  "version": "1.0.0",
+  "title": "Home - Favourites",
+  "category": "ai-zippy",
+  "icon": "star-filled",
+  "description": "Ajax product favourites carousel with filter buttons.",
+  "keywords": [
+    "home",
+    "products",
+    "favourites",
+    "carousel"
+  ],
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "wide"
+    },
+    "eyebrow": {
+      "type": "string",
+      "default": "POPULAR TOYS IN SINGAPORE"
+    },
+    "heading": {
+      "type": "string",
+      "default": "This Week's Favourites"
+    },
+    "description": {
+      "type": "string",
+      "default": "Pick yours and discover toys your kids will actually love."
+    },
+    "viewAllText": {
+      "type": "string",
+      "default": "VIEW ALL PRODUCTS"
+    },
+    "viewAllUrl": {
+      "type": "string",
+      "default": "/shop"
+    },
+    "productLimit": {
+      "type": "number",
+      "default": 8
+    },
+    "filterSource": {
+      "type": "string",
+      "default": "custom"
+    },
+    "categoryFilterIds": {
+      "type": "array",
+      "default": []
+    },
+    "paddingTop": {
+      "type": "number",
+      "default": 92
+    },
+    "paddingBottom": {
+      "type": "number",
+      "default": 108
+    },
+    "marginTop": {
+      "type": "number",
+      "default": 0
+    },
+    "marginBottom": {
+      "type": "number",
+      "default": 0
+    },
+    "filters": {
+      "type": "array",
+      "default": [
+        {
+          "label": "TRENDING NOW",
+          "type": "popular",
+          "categoryId": 0,
+          "maxPrice": 20
+        },
+        {
+          "label": "STUFF PICKS",
+          "type": "featured",
+          "categoryId": 0,
+          "maxPrice": 20
+        },
+        {
+          "label": "UNDER $20",
+          "type": "under_price",
+          "categoryId": 0,
+          "maxPrice": 20
+        },
+        {
+          "label": "GIFT FOR KIDS",
+          "type": "category",
+          "categoryId": 0,
+          "maxPrice": 20
+        },
+        {
+          "label": "NEW IN",
+          "type": "new",
+          "categoryId": 0,
+          "maxPrice": 20
+        }
+      ]
+    }
+  },
+  "textdomain": "ai-zippy-child",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js",
+  "render": "file:./render.php"
+}
