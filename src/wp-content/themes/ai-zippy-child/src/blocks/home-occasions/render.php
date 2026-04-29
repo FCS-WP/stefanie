@@ -14,6 +14,7 @@ $default_items = [
         'buttonText'  => 'SHOP',
         'buttonUrl'   => '/shop',
         'color'       => 'blue',
+        'backgroundColor' => '',
         'art'         => 'cake',
         'imageId'     => 0,
         'imageUrl'    => '',
@@ -25,6 +26,7 @@ $default_items = [
         'buttonText'  => 'SHOP',
         'buttonUrl'   => '/shop',
         'color'       => 'red',
+        'backgroundColor' => '',
         'art'         => 'gift',
         'imageId'     => 0,
         'imageUrl'    => '',
@@ -36,6 +38,7 @@ $default_items = [
         'buttonText'  => 'SHOP',
         'buttonUrl'   => '/shop',
         'color'       => 'green',
+        'backgroundColor' => '',
         'art'         => 'sparkles',
         'imageId'     => 0,
         'imageUrl'    => '',
@@ -47,6 +50,7 @@ $default_items = [
         'buttonText'  => 'SHOP',
         'buttonUrl'   => '/shop',
         'color'       => 'yellow',
+        'backgroundColor' => '',
         'art'         => 'present',
         'imageId'     => 0,
         'imageUrl'    => '',
@@ -58,6 +62,7 @@ $default_items = [
         'buttonText'  => 'SHOP',
         'buttonUrl'   => '/shop',
         'color'       => 'green',
+        'backgroundColor' => '',
         'art'         => 'balloons',
         'imageId'     => 0,
         'imageUrl'    => '',
@@ -69,6 +74,7 @@ $default_items = [
         'buttonText'  => 'SHOP',
         'buttonUrl'   => '/shop',
         'color'       => 'blue',
+        'backgroundColor' => '',
         'art'         => 'cupcake',
         'imageId'     => 0,
         'imageUrl'    => '',
@@ -80,6 +86,7 @@ $default_items = [
         'buttonText'  => 'SHOP',
         'buttonUrl'   => '/shop',
         'color'       => 'red',
+        'backgroundColor' => '',
         'art'         => 'hat',
         'imageId'     => 0,
         'imageUrl'    => '',
@@ -90,6 +97,7 @@ $default_items = [
 $attrs = wp_parse_args($attributes ?? [], [
     'eyebrow'       => "WHAT'S THE OCCASION?",
     'heading'       => 'The Right Gift, for Every Moment.',
+    'headingColor'  => '#000000',
     'description'   => "From baby showers to big birthdays - find something they'll actually remember.",
     'paddingTop'    => 78,
     'paddingBottom' => 66,
@@ -100,11 +108,12 @@ $attrs = wp_parse_args($attributes ?? [], [
 
 $items = is_array($attrs['items']) && !empty($attrs['items']) ? $attrs['items'] : $default_items;
 $style = sprintf(
-    '--home-occasions-padding-top:%dpx;--home-occasions-padding-bottom:%dpx;--home-occasions-margin-top:%dpx;--home-occasions-margin-bottom:%dpx;',
+    '--home-occasions-padding-top:%dpx;--home-occasions-padding-bottom:%dpx;--home-occasions-margin-top:%dpx;--home-occasions-margin-bottom:%dpx;--home-occasions-heading-color:%s;',
     absint($attrs['paddingTop']),
     absint($attrs['paddingBottom']),
     absint($attrs['marginTop']),
-    absint($attrs['marginBottom'])
+    absint($attrs['marginBottom']),
+    esc_attr(sanitize_hex_color($attrs['headingColor']) ?: '#000000')
 );
 
 $wrapper_attributes = get_block_wrapper_attributes([
@@ -135,6 +144,7 @@ $wrapper_attributes = get_block_wrapper_attributes([
                 $item = wp_parse_args($item, $default_items[$index] ?? $default_items[0]);
                 $color = sanitize_html_class($item['color'] ?: 'blue');
                 $art = sanitize_html_class($item['art'] ?: 'gift');
+                $card_background = sanitize_hex_color($item['backgroundColor'] ?? '');
                 $card_classes = [
                     'home-occasions__card',
                     'home-occasions__card--' . $color,
@@ -144,8 +154,10 @@ $wrapper_attributes = get_block_wrapper_attributes([
                 if ((int) $index === 0) {
                     $card_classes[] = 'home-occasions__card--featured';
                 }
+
+                $card_style = $card_background ? '--home-occasions-card-bg:' . esc_attr($card_background) . ';' : '';
                 ?>
-                <article class="<?php echo esc_attr(implode(' ', $card_classes)); ?>">
+                <article class="<?php echo esc_attr(implode(' ', $card_classes)); ?>" <?php echo $card_style ? 'style="' . esc_attr($card_style) . '"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
                     <div class="home-occasions__art" aria-hidden="true">
                         <?php if (!empty($item['imageUrl'])) : ?>
                             <img src="<?php echo esc_url($item['imageUrl']); ?>" alt="<?php echo esc_attr($item['imageAlt'] ?? ''); ?>">

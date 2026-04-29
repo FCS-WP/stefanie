@@ -1,0 +1,52 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/home-clients-v2",
+	"version": "1.0.0",
+	"title": "Home - Clients V2",
+	"category": "ai-zippy-page",
+	"icon": "groups",
+	"description": "Homepage client logo carousel with editable logo styling.",
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "full" },
+		"heading": { "type": "string", "default": "A Little Shop That Made the Headlines." },
+		"backgroundColor": { "type": "string", "default": "#fffbd6" },
+		"textColor": { "type": "string", "default": "#000000" },
+		"dotColor": { "type": "string", "default": "#ffffff" },
+		"dotActiveColor": { "type": "string", "default": "#f16a6c" },
+		"logosPerSlide": { "type": "number", "default": 4 },
+		"logoMaxWidth": { "type": "number", "default": 220 },
+		"logoMaxHeight": { "type": "number", "default": 96 },
+		"logoGap": { "type": "number", "default": 72 },
+		"logoOpacity": { "type": "number", "default": 100 },
+		"logoGrayscale": { "type": "boolean", "default": false },
+		"logos": {
+			"type": "array",
+			"default": [
+				{ "text": "ST", "imageId": 0, "imageUrl": "", "imageAlt": "The Straits Times", "url": "#" },
+				{ "text": "cna<br><span>LIFESTYLE</span>", "imageId": 0, "imageUrl": "", "imageAlt": "CNA Lifestyle", "url": "#" },
+				{ "text": "her<br>world", "imageId": 0, "imageUrl": "", "imageAlt": "Her World", "url": "#" },
+				{ "text": "YOUNG<br>PARENTS", "imageId": 0, "imageUrl": "", "imageAlt": "Young Parents", "url": "#" },
+				{ "text": "PRESS", "imageId": 0, "imageUrl": "", "imageAlt": "Press", "url": "#" },
+				{ "text": "MEDIA", "imageId": 0, "imageUrl": "", "imageAlt": "Media", "url": "#" },
+				{ "text": "KIDS<br><span>PICKS</span>", "imageId": 0, "imageUrl": "", "imageAlt": "Kids Picks", "url": "#" },
+				{ "text": "TOYS<br>NEWS", "imageId": 0, "imageUrl": "", "imageAlt": "Toys News", "url": "#" }
+			]
+		},
+		"paddingTop": { "type": "number", "default": 92 },
+		"paddingBottom": { "type": "number", "default": 78 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 }
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

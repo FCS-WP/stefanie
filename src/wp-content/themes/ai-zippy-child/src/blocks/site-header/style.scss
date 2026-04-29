@@ -22,7 +22,7 @@
     display: block;
     fill: none;
     height: 28px;
-    stroke: currentColor;
+    stroke: #1a1a1a;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.9;
@@ -31,7 +31,7 @@
 
   .site-header__promo {
     align-items: center;
-    background: #ed2b26;
+    background: #283e7a;
     color: #fff;
     display: flex;
     font-size: 24px;
@@ -102,7 +102,7 @@
   }
 
   .site-header__nav-link {
-    color: #2f5ea8;
+    color: #000;
     font-family: var(--wp--preset--font-family--dm-sans, "DM Sans", sans-serif);
     font-size: 16px;
     font-weight: 500;
@@ -278,7 +278,7 @@
   .site-header__cta,
   .site-header__drawer-cta {
     align-items: center;
-    background: #315eae;
+    background: var(--az-button-bg);
     border-radius: 999px;
     color: #fff;
     display: inline-flex;

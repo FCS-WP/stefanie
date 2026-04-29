@@ -26,9 +26,9 @@
   }
 
   .home-press__heading {
-    color: #f36f75;
+    color: #000;
     text-align: center;
-    font-family: var(--home-press-font);
+    font-family: var(--home-press-font) !important;
     font-size: clamp(34px, 3.2vw, 64px);
     font-weight: 800;
     letter-spacing: 0;
@@ -59,7 +59,7 @@
     }
 
     span span {
-      color: #ed302b;
+      color: #f16a6c;
       display: block;
       font-size: 0.36em;
       letter-spacing: 0.08em;
@@ -82,7 +82,7 @@
   }
 
   .home-press__dots .is-active {
-    background: #ed302b;
+    background: #f16a6c;
   }
 
   @media (max-width: 760px) {

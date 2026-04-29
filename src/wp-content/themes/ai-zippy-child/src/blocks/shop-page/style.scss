@@ -1,9 +1,10 @@
 .wp-block-ai-zippy-child-shop-page {
   --shop-red: var(--wp--preset--color--lollipop-red, #ff6b6b);
+  --shop-dark: #000;
   --shop-gold: var(--wp--preset--color--sunshine, #ffe66d);
   --shop-mint: var(--wp--preset--color--spearmint, #45b69c);
   --shop-peach: var(--wp--preset--color--peach-pop, #ff8c69);
-  --shop-blue: var(--wp--preset--color--deep-ink, #2c3e7a);
+  --shop-blue: var(--wp--preset--color--deep-ink, #283e7a);
   --shop-cream: var(--wp--preset--color--warm-cream, #fffbf4);
   --shop-border: var(--wp--preset--color--border, #e7e1d8);
   --shop-muted: var(--wp--preset--color--text-muted, #6f6f77);
@@ -25,7 +26,7 @@
   }
 
   .shop-archive__breadcrumb {
-    color: var(--shop-blue);
+    color: var(--shop-dark);
     display: flex;
     font-size: 13px;
     font-weight: 700;
@@ -36,7 +37,7 @@
   }
 
   h1 {
-    color: var(--shop-red);
+    color: var(--shop-dark);
     font-family: var(--wp--preset--font-family--bricolage-grotesque, "Bricolage Grotesque", sans-serif);
     font-size: clamp(36px, 4vw, 58px);
     font-weight: 800;
@@ -45,7 +46,7 @@
   }
 
   .shop-archive__hero p {
-    color: var(--shop-blue);
+    color: var(--shop-dark);
     font-size: 16px;
     margin: 10px 0 0;
   }
@@ -120,7 +121,7 @@
       background: #fff;
       border: 1px solid #d5d5d5;
       border-radius: 9px;
-      color: var(--shop-blue);
+      color: var(--shop-dark);
       display: inline-flex;
       font-size: 13px;
       font-weight: 700;

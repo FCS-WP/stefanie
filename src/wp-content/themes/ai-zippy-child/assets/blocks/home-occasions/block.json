@@ -37,6 +37,10 @@
       "type": "string",
       "default": "The Right Gift, for Every Moment."
     },
+    "headingColor": {
+      "type": "string",
+      "default": "#000000"
+    },
     "description": {
       "type": "string",
       "default": "From baby showers to big birthdays - find something they'll actually remember."
@@ -66,6 +70,7 @@
           "buttonText": "SHOP",
           "buttonUrl": "/shop",
           "color": "blue",
+          "backgroundColor": "",
           "art": "cake",
           "imageId": 0,
           "imageUrl": "",
@@ -77,6 +82,7 @@
           "buttonText": "SHOP",
           "buttonUrl": "/shop",
           "color": "red",
+          "backgroundColor": "",
           "art": "gift",
           "imageId": 0,
           "imageUrl": "",
@@ -88,6 +94,7 @@
           "buttonText": "SHOP",
           "buttonUrl": "/shop",
           "color": "green",
+          "backgroundColor": "",
           "art": "sparkles",
           "imageId": 0,
           "imageUrl": "",
@@ -99,6 +106,7 @@
           "buttonText": "SHOP",
           "buttonUrl": "/shop",
           "color": "yellow",
+          "backgroundColor": "",
           "art": "present",
           "imageId": 0,
           "imageUrl": "",
@@ -110,6 +118,7 @@
           "buttonText": "SHOP",
           "buttonUrl": "/shop",
           "color": "green",
+          "backgroundColor": "",
           "art": "balloons",
           "imageId": 0,
           "imageUrl": "",
@@ -121,6 +130,7 @@
           "buttonText": "SHOP",
           "buttonUrl": "/shop",
           "color": "blue",
+          "backgroundColor": "",
           "art": "cupcake",
           "imageId": 0,
           "imageUrl": "",
@@ -132,6 +142,7 @@
           "buttonText": "SHOP",
           "buttonUrl": "/shop",
           "color": "red",
+          "backgroundColor": "",
           "art": "hat",
           "imageId": 0,
           "imageUrl": "",
