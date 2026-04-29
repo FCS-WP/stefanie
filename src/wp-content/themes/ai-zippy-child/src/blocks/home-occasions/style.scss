@@ -1,6 +1,6 @@
 .wp-block-ai-zippy-child-home-occasions {
   --home-occasions-blue: #315eae;
-  --home-occasions-red: #ed302b;
+  --home-occasions-red: #f16a6c;
   --home-occasions-green: #57b978;
   --home-occasions-yellow: #ffd70d;
   --home-occasions-ink: #2f5dab;
@@ -27,7 +27,7 @@
   .home-occasions__eyebrow {
     color: #047a42;
     font-size: clamp(13px, 0.95vw, 18px);
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: 0;
     line-height: 1.1;
     margin: 0 0 4px;
@@ -35,8 +35,8 @@
   }
 
   .home-occasions__heading {
-    color: var(--home-occasions-pink);
-    font-family: var(--home-occasions-font);
+    color: var(--home-occasions-heading-color, #000);
+    font-family: var(--home-occasions-font) !important;
     font-size: clamp(34px, 3.85vw, 72px);
     font-weight: 800;
     letter-spacing: 0;
@@ -45,9 +45,9 @@
   }
 
   .home-occasions__description {
-    color: var(--home-occasions-ink);
+    color: var(--home-occasions-heading-color, #000);
     font-size: clamp(18px, 1.45vw, 31px);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.18;
     margin: 0;
   }
@@ -72,19 +72,19 @@
   }
 
   .home-occasions__card--blue {
-    background: var(--home-occasions-blue);
+    background: var(--home-occasions-card-bg, var(--home-occasions-blue));
   }
 
   .home-occasions__card--red {
-    background: var(--home-occasions-red);
+    background: var(--home-occasions-card-bg, var(--home-occasions-red));
   }
 
   .home-occasions__card--green {
-    background: var(--home-occasions-green);
+    background: var(--home-occasions-card-bg, var(--home-occasions-green));
   }
 
   .home-occasions__card--yellow {
-    background: var(--home-occasions-yellow);
+    background: var(--home-occasions-card-bg, var(--home-occasions-yellow));
     color: #2c3e7a;
   }
 

@@ -11,6 +11,11 @@
 					"name": "Lollipop Red - Primary Hero"
 				},
 				{
+					"slug": "light-red",
+					"color": "#F37565",
+					"name": "Light Red"
+				},
+				{
 					"slug": "sunshine",
 					"color": "#FFE66D",
 					"name": "Sunshine - Accent / CTA"

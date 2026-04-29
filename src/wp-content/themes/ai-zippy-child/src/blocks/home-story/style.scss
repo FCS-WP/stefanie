@@ -11,9 +11,9 @@
   }
 
   .home-story__panel {
-    background: #ed302b;
+    background: #f16a6c;
     border-radius: clamp(24px, 2.2vw, 44px);
-    min-height: clamp(430px, 43vw, 770px);
+    min-height: clamp(430px, 43vw, 700px);
     overflow: hidden;
     padding: clamp(54px, 5vw, 96px);
     position: relative;
@@ -35,8 +35,8 @@
 
   .home-story__heading {
     color: #ffd70d;
-    font-family: var(--home-story-font);
-    font-size: clamp(42px, 3.6vw, 72px);
+    font-family: var(--home-story-font) !important;
+    font-size: clamp(36px, 3vw, 60px) !important;
     font-weight: 800;
     letter-spacing: 0;
     line-height: 1.05;
@@ -47,7 +47,7 @@
   .home-story__point {
     color: #fff;
     font-size: clamp(18px, 1.25vw, 26px);
-    font-weight: 700;
+    font-weight: 400;
     line-height: 1.14;
     margin: 0;
   }
@@ -57,7 +57,7 @@
   }
 
   .home-story__point {
-    margin-top: 1rem;
+    margin-top: 2.5rem;
     min-height: 46px;
     padding-left: 96px;
     position: relative;
@@ -88,20 +88,19 @@
 
   .home-story__button {
     --az-button-bg: #ffd70d;
-    --az-button-color: #ed302b;
     align-items: center;
     background: #ffd70d;
     border-radius: 999px;
     bottom: clamp(54px, 5vw, 96px);
-    color: #ed302b;
+    color: #000 !important;
     display: inline-flex;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 400;
     justify-content: center;
-    padding: 12px 22px;
+    padding: 16px 34px !important;
     min-width: 250px;
     position: absolute;
-    right: clamp(54px, 5vw, 96px);
+    left: clamp(54px, 5vw, 96px);
     text-decoration: none;
     z-index: 2;
   }

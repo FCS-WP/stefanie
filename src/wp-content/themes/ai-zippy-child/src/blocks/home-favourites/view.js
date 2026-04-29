@@ -40,7 +40,29 @@ const initFavourites = (block) => {
 
 	const slides = () => Array.from(track.querySelectorAll(".home-favourites__slide"));
 
-	const maxIndex = () => Math.max(0, slides().length - 1);
+	const visibleCount = () => {
+		if (window.matchMedia("(min-width: 901px)").matches) {
+			return 3;
+		}
+
+		if (window.matchMedia("(min-width: 641px)").matches) {
+			return 2;
+		}
+
+		return 1;
+	};
+
+	const minIndex = () => (visibleCount() >= 3 && slides().length > 2 ? 1 : 0);
+
+	const maxIndex = () => {
+		const allSlides = slides();
+
+		if (visibleCount() >= 3 && allSlides.length > 2) {
+			return Math.max(1, allSlides.length - 2);
+		}
+
+		return Math.max(0, allSlides.length - 1);
+	};
 
 	const setActive = () => {
 		slides().forEach((slide, index) => {
@@ -48,7 +70,7 @@ const initFavourites = (block) => {
 		});
 
 		if (prevButton) {
-			prevButton.disabled = currentIndex <= 0;
+			prevButton.disabled = currentIndex <= minIndex();
 		}
 
 		if (nextButton) {
@@ -63,7 +85,7 @@ const initFavourites = (block) => {
 			return;
 		}
 
-		currentIndex = Math.max(0, Math.min(index, maxIndex()));
+		currentIndex = Math.max(minIndex(), Math.min(index, maxIndex()));
 
 		const activeSlide = allSlides[currentIndex];
 		const viewport = block.querySelector(".home-favourites__viewport");

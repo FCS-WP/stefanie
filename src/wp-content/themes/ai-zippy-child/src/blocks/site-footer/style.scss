@@ -1,5 +1,5 @@
 .wp-block-ai-zippy-child-site-footer {
-  --site-footer-blue: #315eae;
+  --site-footer-dark: #17172c;
   --site-footer-red: var(--wp--preset--color--lollipop-red, #ff6b6b);
   --site-footer-text: #ffffff;
   --site-footer-muted: rgba(255, 255, 255, 0.88);
@@ -7,7 +7,7 @@
   --site-footer-heading: var(--wp--preset--font-family--syne, "Syne", sans-serif);
   --site-footer-ui: var(--wp--preset--font-family--dm-sans, "DM Sans", sans-serif);
 
-  background: var(--site-footer-blue);
+  background: var(--site-footer-dark);
   color: var(--site-footer-text);
   font-family: var(--site-footer-font);
   letter-spacing: 0;

@@ -1,6 +1,6 @@
 .wp-block-ai-zippy-child-home-categories {
   --home-categories-blue: #315eae;
-  --home-categories-red: #ed302b;
+  --home-categories-red: #f16a6c;
   --home-categories-green: #57b978;
   --home-categories-yellow: #ffd70d;
   --home-categories-pink: #ef69ac;
@@ -28,7 +28,7 @@
   .home-categories__eyebrow {
     color: #047a42;
     font-size: clamp(13px, 0.95vw, 18px);
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: 0;
     line-height: 1.1;
     margin: 0 0 6px;
@@ -36,8 +36,8 @@
   }
 
   .home-categories__heading {
-    color: #f36f75;
-    font-family: var(--home-categories-font);
+    color: #000;
+    font-family: var(--home-categories-font) !important;
     font-size: clamp(34px, 3.85vw, 72px);
     font-weight: 800;
     letter-spacing: 0;
@@ -46,9 +46,9 @@
   }
 
   .home-categories__description {
-    color: var(--home-categories-blue);
+    color: #000;
     font-size: clamp(18px, 1.45vw, 31px);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.18;
     margin: 0;
   }
@@ -147,7 +147,7 @@
   }
 
   .home-categories__category-title {
-    color: inherit;
+    color: #000;
     display: block;
     font-family: var(--home-categories-font);
     font-size: clamp(20px, 1.45vw, 30px);
@@ -159,7 +159,7 @@
   }
 
   .home-categories__count {
-    color: inherit;
+    color: #000;
     display: block;
     font-size: clamp(12px, 0.85vw, 16px);
     font-weight: 500;

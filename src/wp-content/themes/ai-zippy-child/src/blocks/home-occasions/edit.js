@@ -1,4 +1,5 @@
 import {
+	ColorPalette,
 	InspectorControls,
 	MediaUpload,
 	MediaUploadCheck,
@@ -19,6 +20,19 @@ const COLOR_OPTIONS = [
 	{ label: "Red", value: "red" },
 	{ label: "Green", value: "green" },
 	{ label: "Yellow", value: "yellow" },
+];
+
+const PALETTE_COLORS = [
+	{ name: "Black", color: "#000000" },
+	{ name: "Deep Ink", color: "#151332" },
+	{ name: "Blue", color: "#315eae" },
+	{ name: "Red", color: "#f16a6c" },
+	{ name: "Light Red", color: "#f37565" },
+	{ name: "Green", color: "#57b978" },
+	{ name: "Teal", color: "#36b79a" },
+	{ name: "Yellow", color: "#ffd70d" },
+	{ name: "Gold", color: "#c89628" },
+	{ name: "Purple", color: "#7657a7" },
 ];
 
 const ART_OPTIONS = [
@@ -42,6 +56,7 @@ export default function Edit({ attributes, setAttributes }) {
 			"--home-occasions-padding-bottom": `${attributes.paddingBottom ?? 66}px`,
 			"--home-occasions-margin-top": `${attributes.marginTop ?? 0}px`,
 			"--home-occasions-margin-bottom": `${attributes.marginBottom ?? 0}px`,
+			"--home-occasions-heading-color": attributes.headingColor || "#000000",
 		},
 	});
 
@@ -56,6 +71,13 @@ export default function Edit({ attributes, setAttributes }) {
 		<>
 			<InspectorControls>
 				<PanelBody title="Section Spacing" initialOpen={true}>
+					<p>Section Title Color</p>
+					<ColorPalette
+						colors={PALETTE_COLORS}
+						value={attributes.headingColor}
+						onChange={(headingColor) => setAttributes({ headingColor })}
+						clearable={false}
+					/>
 					<RangeControl
 						label="Padding Top"
 						value={attributes.paddingTop}
@@ -118,6 +140,12 @@ export default function Edit({ attributes, setAttributes }) {
 								value={item.color || "blue"}
 								options={COLOR_OPTIONS}
 								onChange={(color) => updateItem(index, { color })}
+							/>
+							<p>Custom Background Color</p>
+							<ColorPalette
+								colors={PALETTE_COLORS}
+								value={item.backgroundColor}
+								onChange={(backgroundColor) => updateItem(index, { backgroundColor })}
 							/>
 							<SelectControl
 								label="Default Artwork"
@@ -207,6 +235,7 @@ export default function Edit({ attributes, setAttributes }) {
 							<article
 								className={`home-occasions__card home-occasions__card--${item.color || "blue"} home-occasions__card--${item.art || "gift"} ${index === 0 ? "home-occasions__card--featured" : ""}`}
 								key={`${item.title}-${index}`}
+								style={item.backgroundColor ? { "--home-occasions-card-bg": item.backgroundColor } : undefined}
 							>
 								<div className="home-occasions__art" aria-hidden="true">
 									{item.imageUrl ? (

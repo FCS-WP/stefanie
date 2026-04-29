@@ -3,7 +3,7 @@
   --home-hero-red: var(--wp--preset--color--lollipop-red, #ff6b6b);
   --home-hero-cream: var(--wp--preset--color--warm-cream, #fffbf4);
   --home-hero-font: var(--wp--preset--font-family--bricolage-grotesque, "Bricolage Grotesque", sans-serif);
-  --home-hero-heading: var(--wp--preset--font-family--syne, "Syne", sans-serif);
+  --home-hero-heading: var(--home-hero-font);
   --home-hero-ui: var(--wp--preset--font-family--dm-sans, "DM Sans", sans-serif);
 
   background: #dceef0;
@@ -59,8 +59,8 @@
   }
 
   .home-hero__heading {
-    color: var(--home-hero-red);
-    font-family: var(--home-hero-font);
+    color: #000;
+    font-family: var(--home-hero-font) !important;
     font-size: clamp(46px, 90px, 110px);
     font-weight: 700;
     letter-spacing: 1px;
