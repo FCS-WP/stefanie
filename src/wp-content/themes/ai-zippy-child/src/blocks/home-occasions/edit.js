@@ -153,6 +153,12 @@ export default function Edit({ attributes, setAttributes }) {
 								options={ART_OPTIONS}
 								onChange={(art) => updateItem(index, { art })}
 							/>
+							<TextControl
+								label="Additional Card Class"
+								value={item.className || ""}
+								onChange={(className) => updateItem(index, { className })}
+								help="Separate multiple classes with spaces."
+							/>
 							<MediaUploadCheck>
 								<MediaUpload
 									onSelect={(media) =>
@@ -233,7 +239,7 @@ export default function Edit({ attributes, setAttributes }) {
 					<div className="home-occasions__grid">
 						{items.map((item, index) => (
 							<article
-								className={`home-occasions__card home-occasions__card--${item.color || "blue"} home-occasions__card--${item.art || "gift"} ${index === 0 ? "home-occasions__card--featured" : ""}`}
+								className={`home-occasions__card home-occasions__card--${item.color || "blue"} home-occasions__card--${item.art || "gift"} ${index === 0 ? "home-occasions__card--featured" : ""} ${item.className || ""}`}
 								key={`${item.title}-${index}`}
 								style={item.backgroundColor ? { "--home-occasions-card-bg": item.backgroundColor } : undefined}
 							>

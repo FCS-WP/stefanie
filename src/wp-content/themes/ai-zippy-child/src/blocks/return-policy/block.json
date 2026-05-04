@@ -1,0 +1,116 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/return-policy",
+	"version": "1.0.0",
+	"title": "Return & Exchange Policy",
+	"category": "ai-zippy-page",
+	"icon": "text-page",
+	"description": "Editable Return & Exchange Policy page content.",
+	"keywords": ["return", "exchange", "refund", "policy"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"eyebrow": { "type": "string", "default": "Tom & Stefanie" },
+		"heading": { "type": "string", "default": "Return & Exchange Policy" },
+		"description": {
+			"type": "string",
+			"default": "At Tom & Stefanie, we take extra care in ensuring all products are checked before delivery. Due to hygiene and safety considerations for baby and children products, our return policy is as follows:"
+		},
+		"backgroundColor": { "type": "string", "default": "#f8f7f4" },
+		"textColor": { "type": "string", "default": "#000000" },
+		"mutedColor": { "type": "string", "default": "#8f8a83" },
+		"cardBackgroundColor": { "type": "string", "default": "#ffffff" },
+		"accentColor": { "type": "string", "default": "#f16a6c" },
+		"maxWidth": { "type": "number", "default": 1180 },
+		"paddingTop": { "type": "number", "default": 72 },
+		"paddingBottom": { "type": "number", "default": 86 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 },
+		"sections": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Eligibility for Returns / Exchanges",
+					"body": "Items may be returned or exchanged if all of the following conditions are met:\nPlease note: The following items cannot be returned due to hygiene and safety reasons:",
+					"items": [
+						"Notify us within 7 days of receipt via WhatsApp or email. We regret that we are not able to assist if any defect is reported after 7 days of receipt.",
+						"Item is brand new, unused, and in its original product packaging, excluding the outer delivery box.",
+						"All original tags, labels, or seals are intact and unbroken.",
+						"Original packaging is undamaged.",
+						"Opened or used baby products, such as bottles, feeding sets, and teethers, cannot be returned.",
+						"Personal care items, such as bath toys and skincare sets, cannot be returned.",
+						"Clearance, promotional, or final sale items cannot be returned.",
+						"Items without original packaging cannot be returned."
+					]
+				},
+				{
+					"title": "Steps for Returning Item",
+					"body": "To request a return or exchange:",
+					"items": [
+						"Check eligibility - ensure the item meets all return conditions above.",
+						"Notify us within 7 days of receiving your order via WhatsApp or email.",
+						"Include your order number or receipt.",
+						"Include photos of the item and packaging if relevant.",
+						"Include a brief description of the reason for return or exchange.",
+						"Drop off at any Tom & Stefanie store for free with your receipt.",
+						"Schedule a delivery pickup at S$5 flat rate back to any of our stores."
+					]
+				},
+				{
+					"title": "Damaged Items",
+					"body": "While we take care to ensure that the product reaches you in good condition, damages to packaging can sometimes occur in transit and do not constitute a defect. Damaged items refer to physical damage to the product itself, not the packaging.\nHere are the steps to follow should you receive an item that is damaged in your order:",
+					"items": [
+						"Minor damage to outer delivery packaging does not constitute a damaged item.",
+						"Bulky items may have additional markings or labels during delivery; this is normal and not a defect.",
+						"Notify us within 7 days of receipt via WhatsApp or email.",
+						"Include photos or videos showing the damage and any relevant packaging.",
+						"Drop off at the store or arrange a $5 dropoff.",
+						"We will review and advise on next steps."
+					]
+				},
+				{
+					"title": "Defective Items",
+					"body": "Defective items are those that are not functioning as intended, missing parts, or have a significant cosmetic or manufacturing defect.\nSteps for defective items:",
+					"items": [
+						"Notify us within 7 days of receipt via WhatsApp or email.",
+						"Include photos or videos showing the defect.",
+						"Set the item aside and do not use it; we may require the item for evaluation.",
+						"In some cases, photos or videos may not be sufficient, and we may request the item be returned to a store or collected.",
+						"We will perform tests on the item and/or send it to the supplier to confirm the defect.",
+						"The replacement will be sent out only after the defect is confirmed. Please note that this process will take some time.",
+						"Replacement will only be issued once the defect is confirmed."
+					]
+				},
+				{
+					"title": "Important Note on Our Return Policy",
+					"body": "Tom & Stefanie reserves the right to reject any return that does not meet the conditions above. If rejected, the customer must collect the item.",
+					"items": [
+						"Approved returns will be offered a 1-to-1 exchange.",
+						"Refunds, if applicable, will be issued as store credits for your next purchase.",
+						"Delivery fees are non-refundable.",
+						"If rejected, you may self-collect, arrange your own courier, or use our courier service at S$7 flat rate."
+					]
+				},
+				{
+					"title": "Product Warranty",
+					"body": "By default, all items sold at Tom & Stefanie do not come with warranty unless otherwise stated on the product page itself.",
+					"items": [
+						"For all defects covered under the warranty period, you will be directed to the respective warranty service centre for repairs.",
+						"The buyer is responsible for all costs involved in sending the item to the warranty centre for assessment.",
+						"If the issue is deemed by the warranty center to be a manufacturing defect, and the item cannot be repaired or replaced, a refund in the form of store credits will be issued to the buyer."
+					]
+				}
+			]
+		}
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

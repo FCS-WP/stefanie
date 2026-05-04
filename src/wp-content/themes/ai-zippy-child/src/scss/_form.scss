@@ -63,7 +63,7 @@ $fs-color-success: #45b69c;
 
     label {
         font-weight: 700;
-        color: $primary-color;
+        color: white;
     }
 
     input,
@@ -175,6 +175,11 @@ $fs-color-success: #45b69c;
     flex: 0 0 calc(var(--zippy-field-width) - 10px);
     max-width: 100%;
     flex-grow: 1;
+    
+    label {
+        color: white;
+        font-size: 16px;
+    }
 
     input,
     textarea,
@@ -191,7 +196,7 @@ $fs-color-success: #45b69c;
 
 .zippy-form__checkbox-wrap {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
 }
 
@@ -200,15 +205,16 @@ $fs-color-success: #45b69c;
 }
 
 .zippy-form__submit-btn {
-    border: 1px solid $fs-color-success;
-    background-color: $primary-color;
+    border: 1px solid #f68a5a;
+    background-color: #f68a5a;
     color: #fff;
-    padding: 4px 40px;
+    padding: 12px 40px;
+    border-radius: 99px;
     font-weight: 400;
     font-size: 14px;
     &:hover {
-        background-color: $primary-color;
-        color: $fs-color-success;
+        background-color: #c18c2b;
+        color: white;
     }
 }
 .zippy-field-error {

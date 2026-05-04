@@ -19,6 +19,7 @@ $default_items = [
         'imageId'     => 0,
         'imageUrl'    => '',
         'imageAlt'    => '',
+        'className'   => '',
     ],
     [
         'title'       => 'Just Because',
@@ -31,6 +32,7 @@ $default_items = [
         'imageId'     => 0,
         'imageUrl'    => '',
         'imageAlt'    => '',
+        'className'   => '',
     ],
     [
         'title'       => 'Festive Gifting',
@@ -43,6 +45,7 @@ $default_items = [
         'imageId'     => 0,
         'imageUrl'    => '',
         'imageAlt'    => '',
+        'className'   => '',
     ],
     [
         'title'       => 'No time?',
@@ -55,6 +58,7 @@ $default_items = [
         'imageId'     => 0,
         'imageUrl'    => '',
         'imageAlt'    => '',
+        'className'   => '',
     ],
     [
         'title'       => 'Baby Shower',
@@ -67,6 +71,7 @@ $default_items = [
         'imageId'     => 0,
         'imageUrl'    => '',
         'imageAlt'    => '',
+        'className'   => '',
     ],
     [
         'title'       => '1st Month',
@@ -79,6 +84,7 @@ $default_items = [
         'imageId'     => 0,
         'imageUrl'    => '',
         'imageAlt'    => '',
+        'className'   => '',
     ],
     [
         'title'       => 'Graduation',
@@ -91,6 +97,7 @@ $default_items = [
         'imageId'     => 0,
         'imageUrl'    => '',
         'imageAlt'    => '',
+        'className'   => '',
     ],
 ];
 
@@ -154,6 +161,12 @@ $wrapper_attributes = get_block_wrapper_attributes([
                 if ((int) $index === 0) {
                     $card_classes[] = 'home-occasions__card--featured';
                 }
+
+                $custom_card_classes = array_filter(array_map(
+                    'sanitize_html_class',
+                    preg_split('/\s+/', (string) ($item['className'] ?? ''))
+                ));
+                $card_classes = array_merge($card_classes, $custom_card_classes);
 
                 $card_style = $card_background ? '--home-occasions-card-bg:' . esc_attr($card_background) . ';' : '';
                 ?>

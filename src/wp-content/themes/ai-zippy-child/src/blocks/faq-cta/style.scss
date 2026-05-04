@@ -1,0 +1,202 @@
+.wp-block-ai-zippy-child-faq-cta {
+  --faq-cta-font: var(--wp--preset--font-family--bricolage-grotesque, "Bricolage Grotesque", sans-serif);
+
+  background: var(--faq-cta-bg, #fff);
+  color: var(--faq-cta-color, #000);
+  font-family: var(--faq-cta-font);
+  margin-bottom: var(--faq-cta-margin-bottom, 0);
+  margin-top: var(--faq-cta-margin-top, 0);
+  padding: var(--faq-cta-padding-top, 48px) var(--az-section-x-padding, clamp(24px, 7vw, 96px)) var(--faq-cta-padding-bottom, 52px);
+
+  .faq-cta__inner {
+    display: grid;
+    gap: clamp(24px, 2.2vw, 42px);
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.7fr);
+    margin: 0 auto;
+    max-width: var(--az-section-max-width, 1735px);
+  }
+
+  .faq-cta__whatsapp-card,
+  .faq-cta__message-card {
+    border: 1px solid rgba(21, 20, 38, 0.12);
+    box-shadow: 0 10px 24px rgba(21, 20, 38, 0.08);
+    min-height: clamp(230px, 14vw, 278px);
+  }
+
+  .faq-cta__whatsapp-card {
+    background-color: white;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(28px, 2.4vw, 46px) clamp(26px, 2.5vw, 48px) 0;
+    position: relative;
+    text-align: center;
+  }
+
+  .faq-cta__whatsapp-mark {
+    background: var(--faq-cta-whatsapp, #25d366);
+    border-radius: 50%;
+    display: block;
+    height: clamp(72px, 5.4vw, 104px);
+    margin: 0 0 clamp(22px, 1.8vw, 34px);
+    width: clamp(72px, 5.4vw, 104px);
+  }
+  .faq-cta__whatsapp-title {
+    color: var(--faq-cta-muted, #8f8a83);
+    font-family: var(--faq-cta-font) !important;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .faq-cta__form-heading {
+    color: white;
+    font-family: var(--faq-cta-font) !important;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  .faq-cta__whatsapp-title {
+    font-size: clamp(21px, 1.65vw, 32px);
+    margin-bottom: 12px;
+  }
+
+  .faq-cta__whatsapp-note {
+    color: var(--faq-cta-muted, #8f8a83);
+    font-size: clamp(13px, 0.95vw, 17px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0 0 14px;
+  }
+
+  .faq-cta__whatsapp-phone {
+    color: var(--faq-cta-whatsapp, #25d366);
+    font-size: clamp(15px, 1vw, 18px);
+    font-weight: 800;
+    line-height: 1;
+    margin: 0 0 18px;
+  }
+
+  .faq-cta__whatsapp-button {
+    --az-button-bg: var(--faq-cta-whatsapp, #25d366);
+    --az-button-color: #fff;
+    align-self: stretch;
+    border-radius: 0;
+    font-size: clamp(13px, 1vw, 17px) !important;
+    min-height: clamp(42px, 2.6vw, 54px) !important;
+    width: 100%;
+  }
+
+  .faq-cta__message-card {
+    background: var(--faq-cta-card-bg, #f8f7f4);
+    padding: clamp(24px, 2vw, 40px) clamp(28px, 2.6vw, 54px);
+  }
+
+  .faq-cta__form-heading {
+    font-size: clamp(25px, 2vw, 40px);
+    margin-bottom: clamp(16px, 1.5vw, 26px);
+  }
+
+  .faq-cta__form,
+  .faq-cta__form-shell form {
+    display: grid;
+    gap: 18px 24px;
+    grid-template-columns: 1fr;
+  }
+
+  .faq-cta__field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .faq-cta__field--wide {
+    grid-column: 1 / -1;
+  }
+
+  .faq-cta__field span {
+    color: var(--faq-cta-color, #000);
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .faq-cta__field input,
+  .faq-cta__form-shell input,
+  .faq-cta__form-shell textarea,
+  .faq-cta__form-shell select {
+    background: #fff;
+    border: 1px solid rgba(21, 20, 38, 0.16);
+    box-shadow: inset 0 1px 0 rgba(21, 20, 38, 0.04), 0 3px 10px rgba(21, 20, 38, 0.08);
+    color: var(--faq-cta-color, #000);
+    font-family: var(--faq-cta-font);
+    font-size: 15px;
+    min-height: 48px;
+    padding: 12px 18px;
+    width: 100%;
+  }
+
+  .faq-cta__field input::placeholder,
+  .faq-cta__form-shell input::placeholder,
+  .faq-cta__form-shell textarea::placeholder {
+    color: var(--faq-cta-muted, #8f8a83);
+    font-style: italic;
+    opacity: 0.78;
+  }
+
+  .faq-cta__submit,
+  .faq-cta__form-shell input[type="submit"] {
+    align-items: center;
+    background: var(--faq-cta-submit, #cba542);
+    border: 0;
+    border-radius: 999px;
+    color: #111;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: var(--faq-cta-font);
+    font-size: 15px;
+    font-weight: 800;
+    grid-column: 1 / -1;
+    justify-content: center;
+    justify-self: center;
+    min-height: 48px;
+    min-width: clamp(220px, 16vw, 300px);
+    padding: 14px 34px;
+    text-align: center;
+  }
+
+  .faq-cta__shortcode-note {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px dashed rgba(21, 20, 38, 0.18);
+    color: var(--faq-cta-muted, #8f8a83);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .faq-cta__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .faq-cta__message-card {
+      padding: 24px;
+    }
+
+    .faq-cta__form,
+    .faq-cta__form-shell form {
+      grid-template-columns: 1fr;
+    }
+
+    .faq-cta__submit,
+    .faq-cta__form-shell button,
+    .faq-cta__form-shell input[type="submit"] {
+      width: 100%;
+    }
+  }
+}

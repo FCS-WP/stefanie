@@ -18,6 +18,57 @@ if (! defined('ABSPATH')) exit;
 
 
 // ============================================================
+// International phone input assets
+// ============================================================
+function zippy_form_enqueue_intl_tel_assets()
+{
+    $version = '26.5.0';
+
+    wp_enqueue_style(
+        'zippy-intl-tel-input',
+        'https://cdn.jsdelivr.net/npm/intl-tel-input@' . $version . '/build/css/intlTelInput.css',
+        [],
+        $version
+    );
+
+    wp_enqueue_script(
+        'zippy-intl-tel-input',
+        'https://cdn.jsdelivr.net/npm/intl-tel-input@' . $version . '/build/js/intlTelInput.min.js',
+        [],
+        $version,
+        true
+    );
+
+    wp_add_inline_script(
+        'zippy-intl-tel-input',
+        "(function(){\n" .
+        "function initZippyIntlTel(){\n" .
+        "if(!window.intlTelInput){return;}\n" .
+        "document.querySelectorAll('.zippy-intl-tel-input').forEach(function(input){\n" .
+        "if(input.dataset.zippyIntlTelReady==='1'){return;}\n" .
+        "var fullName=input.dataset.fullName||input.name+'_full';\n" .
+        "var countryName=input.dataset.countryName||input.name+'_country';\n" .
+        "var form=input.closest('form');\n" .
+        "var fullInput=form?form.querySelector('input[name=\"'+fullName+'\"]'):null;\n" .
+        "var countryInput=form?form.querySelector('input[name=\"'+countryName+'\"]'):null;\n" .
+        "if(!fullInput&&form){fullInput=document.createElement('input');fullInput.type='hidden';fullInput.name=fullName;form.appendChild(fullInput);}\n" .
+        "if(!countryInput&&form){countryInput=document.createElement('input');countryInput.type='hidden';countryInput.name=countryName;form.appendChild(countryInput);}\n" .
+        "var iti=window.intlTelInput(input,{initialCountry:input.dataset.initialCountry||'sg',separateDialCode:true,nationalMode:true,autoPlaceholder:'aggressive',loadUtils:function(){return import('https://cdn.jsdelivr.net/npm/intl-tel-input@" . $version . "/build/js/utils.js');}});\n" .
+        "input._zippyIntlTel=iti;input.dataset.zippyIntlTelReady='1';\n" .
+        "var sync=function(){var country=iti.getSelectedCountryData()||{};if(fullInput){fullInput.value=input.value.trim()?iti.getNumber():'';}if(countryInput){countryInput.value=country.iso2||'';}};\n" .
+        "input.addEventListener('blur',sync);input.addEventListener('change',sync);input.addEventListener('countrychange',sync);input.addEventListener('input',sync);\n" .
+        "if(form&&!form.dataset.zippyIntlTelSubmitReady){form.dataset.zippyIntlTelSubmitReady='1';form.addEventListener('submit',function(){form.querySelectorAll('.zippy-intl-tel-input').forEach(function(phone){if(phone._zippyIntlTel){var phoneFullName=phone.dataset.fullName||phone.name+'_full';var phoneCountryName=phone.dataset.countryName||phone.name+'_country';var phoneFull=form.querySelector('input[name=\"'+phoneFullName+'\"]');var phoneCountry=form.querySelector('input[name=\"'+phoneCountryName+'\"]');var data=phone._zippyIntlTel.getSelectedCountryData()||{};if(phoneFull){phoneFull.value=phone.value.trim()?phone._zippyIntlTel.getNumber():'';}if(phoneCountry){phoneCountry.value=data.iso2||'';}}});},true);}\n" .
+        "sync();\n" .
+        "});\n" .
+        "}\n" .
+        "if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initZippyIntlTel);}else{initZippyIntlTel();}\n" .
+        "})();"
+    );
+}
+add_action('wp_enqueue_scripts', 'zippy_form_enqueue_intl_tel_assets');
+
+
+// ============================================================
 // Validation Rules
 // ============================================================
 function zippy_cf_validate($fields)
@@ -91,7 +142,8 @@ function zippy_contact_form_handler()
     $fields = [
         'name'         => sanitize_text_field($_POST['zippy_name']         ?? ''),
         'email'        => sanitize_email($_POST['zippy_email']             ?? ''),
-        'phone'        => sanitize_text_field($_POST['zippy_phone']        ?? ''),
+        'phone'        => sanitize_text_field(($_POST['zippy_phone_full'] ?? '') ?: ($_POST['zippy_phone'] ?? '')),
+        'phone_country'=> sanitize_text_field($_POST['zippy_phone_country'] ?? ''),
         'subject'      => sanitize_text_field($_POST['zippy_subject']      ?? ''),
         'order_number' => sanitize_text_field($_POST['zippy_order_number'] ?? ''),
         'message'      => sanitize_textarea_field($_POST['zippy_message']  ?? ''),
@@ -109,6 +161,9 @@ function zippy_contact_form_handler()
         $body  = "Name: {$fields['name']}\n";
         $body .= "Email: {$fields['email']}\n";
         $body .= "Phone: {$fields['phone']}\n";
+        if (! empty($fields['phone_country'])) {
+            $body .= "Phone Country: {$fields['phone_country']}\n";
+        }
         $body .= "Subject: {$fields['subject']}\n";
         if (! empty($fields['order_number'])) {
             $body .= "Order Number: {$fields['order_number']}\n";
@@ -302,12 +357,18 @@ function zippy_contact_form($atts)
                         <input
                             type="tel"
                             id="zippy_phone"
+                            class="zippy-intl-tel-input"
                             name="zippy_phone"
                             value="<?php echo $val('phone'); ?>"
-                            placeholder="+65 9123 4567"
+                            data-full-name="zippy_phone_full"
+                            data-country-name="zippy_phone_country"
+                            data-initial-country="sg"
+                            placeholder="9123 4567"
                             pattern="[+\d\s\-().]{7,20}"
                             required
                             autocomplete="tel" />
+                        <input type="hidden" name="zippy_phone_full" value="<?php echo $val('phone'); ?>" />
+                        <input type="hidden" name="zippy_phone_country" value="<?php echo esc_attr($old['phone_country'] ?? ''); ?>" />
                         <?php echo $err('phone'); ?>
                     </div>
 
@@ -449,6 +510,8 @@ function zippy_contact_form($atts)
                                 msg = rule.label + ' must be at least ' + rule.minLength + ' characters.';
                             } else if (rule.maxLength && value.length > rule.maxLength) {
                                 msg = rule.label + ' must not exceed ' + rule.maxLength + ' characters.';
+                            } else if (input._zippyIntlTel && value && !input._zippyIntlTel.isValidNumber()) {
+                                msg = 'Please enter a valid ' + rule.label.toLowerCase() + '.';
                             } else if (rule.pattern && !rule.pattern.test(value)) {
                                 msg = 'Please enter a valid ' + rule.label.toLowerCase() + '.';
                             }
@@ -532,6 +595,7 @@ add_shortcode('zippy_contact_form', 'zippy_contact_form');
  *       [form_input type="text"     label="Full Name"   required="true" width="50%"]
  *       [form_input type="email"    label="Email"       required="true" width="50%"]
  *       [form_input type="tel"      label="Phone"       width="50%"]
+ *       [form_phone                 label="Phone"       required="true" width="50%"]
  *       [form_input type="date"     label="Date"        width="50%"]
  *       [form_input type="number"   label="Guests"      min="1" max="20" width="50%"]
  *       [form_input type="textarea" label="Message"     rows="4"]
@@ -605,6 +669,39 @@ function zippy_form_input( $atts ) {
     return '__ZIPPY_FIELD__' . base64_encode(json_encode($atts)) . '__';
 }
 add_shortcode('form_input', 'zippy_form_input');
+
+
+// ============================================================
+// [form_phone] — international phone input with country selector
+// ============================================================
+function zippy_form_phone( $atts ) {
+    global $zippy_form_fields;
+
+    $atts = shortcode_atts([
+        'label'           => 'Phone',
+        'placeholder'     => '',
+        'required'        => 'false',
+        'width'           => '100%',
+        'name'            => '',
+        'class'           => '',
+        'initial_country' => 'sg',
+    ], $atts, 'form_phone');
+
+    $field_name = $atts['name'] ?: sanitize_title($atts['label']);
+
+    $zippy_form_fields[] = [
+        'type'     => 'intl_tel',
+        'label'    => $atts['label'],
+        'name'     => $field_name,
+        'required' => $atts['required'] === 'true',
+    ];
+
+    return '__ZIPPY_FIELD__' . base64_encode(json_encode(array_merge($atts, [
+        '_type' => 'intl_tel',
+        'name'  => $field_name,
+    ]))) . '__';
+}
+add_shortcode('form_phone', 'zippy_form_phone');
 
 
 // ============================================================
@@ -814,6 +911,29 @@ function zippy_custom_form( $atts, $content = null ) {
                                 echo '</select>';
                                 break;
 
+                            case 'intl_tel':
+                                $country_name = $name . '_country';
+                                $full_name = $name . '_full';
+                                printf(
+                                    '<input type="tel" id="%s" class="zippy-intl-tel-input" name="%s" value="%s" placeholder="%s" data-full-name="%s" data-country-name="%s" data-initial-country="%s" autocomplete="tel" %s />',
+                                    esc_attr($field_id),
+                                    esc_attr($name),
+                                    esc_attr($old_val),
+                                    esc_attr($field['placeholder'] ?? $label),
+                                    esc_attr($full_name),
+                                    esc_attr($country_name),
+                                    esc_attr($field['initial_country'] ?? 'sg'),
+                                    $req_attr
+                                );
+                                printf(
+                                    '<input type="hidden" name="%s" value="%s" /><input type="hidden" name="%s" value="%s" />',
+                                    esc_attr($full_name),
+                                    esc_attr($old[$full_name] ?? $old_val),
+                                    esc_attr($country_name),
+                                    esc_attr($old[$country_name] ?? '')
+                                );
+                                break;
+
                             case 'checkbox':
                                 $checked = $old_val ? 'checked' : '';
                                 printf(
@@ -903,6 +1023,8 @@ function zippy_custom_form( $atts, $content = null ) {
                     msg = labelText + ' must be checked.';
                 } else if (input.type === 'email' && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
                     msg = 'Please enter a valid email address.';
+                } else if (input._zippyIntlTel && val && !input._zippyIntlTel.isValidNumber()) {
+                    msg = 'Please enter a valid phone number.';
                 } else if (input.type === 'tel' && val && !/^[+\d\s\-().]{7,}$/.test(val)) {
                     msg = 'Please enter a valid phone number.';
                 }
@@ -987,6 +1109,24 @@ add_action('init', function() {
             if ( $required && ! isset($_POST[$name]) ) {
                 $errors[] = $label . ' must be checked.';
             }
+        } elseif ( $type === 'intl_tel' ) {
+            $full_name = $name . '_full';
+            $country_name = $name . '_country';
+            $raw = $_POST[$full_name] ?? ($_POST[$name] ?? '');
+            $value = sanitize_text_field($raw);
+            $country = sanitize_text_field($_POST[$country_name] ?? '');
+            $old[$name] = sanitize_text_field($_POST[$name] ?? $value);
+            $old[$full_name] = $value;
+            $old[$country_name] = $country;
+
+            if ( $required && $value === '' ) {
+                $errors[] = $label . ' is required.';
+                continue;
+            }
+
+            if ( $value && ! preg_match('/^[+\d\s\-().]{7,20}$/', $value) ) {
+                $errors[] = 'Please enter a valid phone number for ' . $label . '.';
+            }
         } else {
             $raw   = $_POST[$name] ?? '';
             $value = sanitize_text_field($raw);
@@ -1003,6 +1143,9 @@ add_action('init', function() {
         }
 
         $body .= $label . ': ' . $value . "\n";
+        if ( $type === 'intl_tel' && ! empty($country) ) {
+            $body .= $label . ' Country: ' . strtoupper($country) . "\n";
+        }
     }
 
     // ── Send email ──
