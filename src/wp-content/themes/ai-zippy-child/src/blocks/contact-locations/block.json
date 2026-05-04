@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "ai-zippy-child/contact-locations",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"title": "Contact - Locations",
 	"category": "ai-zippy",
 	"icon": "location-alt",
