@@ -1,0 +1,35 @@
+.home-occasions__card.card-1 img{
+	object-position: right;
+}
+
+.home-occasions__card.card-2 .home-occasions__art,
+.home-occasions__card.card-3 .home-occasions__art,
+.home-occasions__card.card-4 .home-occasions__art,
+.home-occasions__card.card-6 .home-occasions__art {
+	display: flex;
+	flex-direction: column;	
+}
+.home-occasions__card.card-2 img{
+	  width: 50%;
+    align-self: center;
+    object-position: 0px 10px;
+    text-align: center;
+}
+.home-occasions__card.card-3 img,
+.home-occasions__card.card-4 img {
+	  width: 70%;
+    align-self: center;
+    object-position: 0 20px;
+}
+
+.home-occasions__card.card-5 img {
+   object-position: right;
+} 
+.home-occasions__card.card-6 img {
+   object-position: 0 30px;
+		width: 30%;
+	  align-self: center;
+} 
+.home-occasions__card.card-7 img {
+  object-fit: cover
+} 

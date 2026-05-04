@@ -104,7 +104,7 @@ export default function Edit({ attributes, setAttributes }) {
 			"--home-categories-margin-bottom": `${attributes.marginBottom ?? 0}px`,
 			"--home-categories-slides": attributes.slidesToShow || 6,
 			"--home-categories-tablet-slides": attributes.tabletSlidesToShow || 3,
-			"--home-categories-mobile-slides": attributes.mobileSlidesToShow || 1,
+			"--home-categories-mobile-slides": attributes.mobileSlidesToShow || 2,
 		},
 	});
 
@@ -269,22 +269,34 @@ export default function Edit({ attributes, setAttributes }) {
 						/>
 					</div>
 
-					<div className="home-categories__viewport">
-						<div className="home-categories__track">
-							{visiblePreviewCategories.map((category, index) => (
-								<div className="home-categories__slide" key={category.id}>
-									<span className={`home-categories__image-wrap home-categories__image-wrap--${(index % 6) + 1}`}>
-										{category.image ? (
-											<img src={category.image} alt="" />
-										) : (
-											<span className="home-categories__image-placeholder" />
-										)}
-									</span>
-									<h3 className="home-categories__category-title">{category.name}</h3>
-									<p className="home-categories__count">{category.count} products</p>
-								</div>
-							))}
+					<div className="home-categories__carousel">
+						{attributes.showArrows && (
+							<button className="home-categories__arrow home-categories__arrow--prev" type="button" aria-label="Previous categories">
+								<span aria-hidden="true" />
+							</button>
+						)}
+						<div className="home-categories__viewport">
+							<div className="home-categories__track">
+								{visiblePreviewCategories.map((category, index) => (
+									<div className="home-categories__slide" key={category.id}>
+										<span className={`home-categories__image-wrap home-categories__image-wrap--${(index % 6) + 1}`}>
+											{category.image ? (
+												<img src={category.image} alt="" />
+											) : (
+												<span className="home-categories__image-placeholder" />
+											)}
+										</span>
+										<h3 className="home-categories__category-title">{category.name}</h3>
+										<p className="home-categories__count">{category.count} products</p>
+									</div>
+								))}
+							</div>
 						</div>
+						{attributes.showArrows && (
+							<button className="home-categories__arrow home-categories__arrow--next" type="button" aria-label="Next categories">
+								<span aria-hidden="true" />
+							</button>
+						)}
 					</div>
 				</div>
 			</section>

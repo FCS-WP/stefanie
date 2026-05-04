@@ -64,6 +64,8 @@ const initFavourites = (block) => {
 		return Math.max(0, allSlides.length - 1);
 	};
 
+	const initialIndex = () => (visibleCount() >= 3 && slides().length > 1 ? 1 : 0);
+
 	const setActive = () => {
 		slides().forEach((slide, index) => {
 			slide.classList.toggle("is-active", index === currentIndex);
@@ -111,7 +113,7 @@ const initFavourites = (block) => {
 
 		block.classList.add("is-loading");
 		track.innerHTML = skeletonMarkup();
-		goTo(1);
+		goTo(initialIndex());
 
 		try {
 			const response = await fetch(endpoint, {
@@ -138,7 +140,7 @@ const initFavourites = (block) => {
 
 			track.innerHTML = data.html || "";
 			block.classList.remove("is-loading");
-			goTo(slides().length > 1 ? 1 : 0);
+			goTo(initialIndex());
 		} catch (error) {
 			if (thisRequest === requestId) {
 				block.classList.remove("is-loading");
@@ -161,7 +163,7 @@ const initFavourites = (block) => {
 	});
 
 	window.addEventListener("resize", () => goTo(currentIndex));
-	goTo(slides().length > 1 ? 1 : 0);
+	goTo(initialIndex());
 };
 
 document.addEventListener("DOMContentLoaded", () => {

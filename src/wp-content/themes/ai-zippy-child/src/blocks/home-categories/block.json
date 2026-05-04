@@ -32,7 +32,7 @@
 		"order": { "type": "string", "default": "ASC" },
 		"slidesToShow": { "type": "number", "default": 6 },
 		"tabletSlidesToShow": { "type": "number", "default": 3 },
-		"mobileSlidesToShow": { "type": "number", "default": 1 },
+		"mobileSlidesToShow": { "type": "number", "default": 2 },
 		"showArrows": { "type": "boolean", "default": true },
 		"showDots": { "type": "boolean", "default": false },
 		"paddingTop": { "type": "number", "default": 70 },

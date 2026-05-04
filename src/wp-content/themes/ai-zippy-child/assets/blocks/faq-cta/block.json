@@ -1,0 +1,146 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ai-zippy-child/faq-cta",
+  "version": "1.0.0",
+  "title": "FAQ CTA",
+  "category": "ai-zippy-page",
+  "icon": "format-chat",
+  "description": "FAQ page contact CTA with WhatsApp card and message form.",
+  "keywords": [
+    "faq",
+    "contact",
+    "cta",
+    "whatsapp"
+  ],
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "wide"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "cardBackgroundColor": {
+      "type": "string",
+      "default": "#f8f7f4"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "mutedColor": {
+      "type": "string",
+      "default": "#8f8a83"
+    },
+    "whatsappColor": {
+      "type": "string",
+      "default": "#25d366"
+    },
+    "submitColor": {
+      "type": "string",
+      "default": "#cba542"
+    },
+    "whatsappTitle": {
+      "type": "string",
+      "default": "Chat with us on WhatsApp"
+    },
+    "whatsappNote": {
+      "type": "string",
+      "default": "Quick replies within business hours"
+    },
+    "whatsappPhone": {
+      "type": "string",
+      "default": "+65 8086 3940"
+    },
+    "whatsappButtonText": {
+      "type": "string",
+      "default": "WhatsApp Now"
+    },
+    "whatsappUrl": {
+      "type": "string",
+      "default": "https://wa.me/6580863940"
+    },
+    "whatsappImageId": {
+      "type": "number",
+      "default": 0
+    },
+    "whatsappImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "whatsappImageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "formHeading": {
+      "type": "string",
+      "default": "Send Us a Message"
+    },
+    "formShortcode": {
+      "type": "string",
+      "default": ""
+    },
+    "nameLabel": {
+      "type": "string",
+      "default": "Your Name"
+    },
+    "namePlaceholder": {
+      "type": "string",
+      "default": "First & last name"
+    },
+    "emailLabel": {
+      "type": "string",
+      "default": "Email Address"
+    },
+    "emailPlaceholder": {
+      "type": "string",
+      "default": "hello@email.com"
+    },
+    "messageLabel": {
+      "type": "string",
+      "default": "Message"
+    },
+    "messagePlaceholder": {
+      "type": "string",
+      "default": "What would you like to know?"
+    },
+    "submitText": {
+      "type": "string",
+      "default": "Send Message"
+    },
+    "paddingTop": {
+      "type": "number",
+      "default": 48
+    },
+    "paddingBottom": {
+      "type": "number",
+      "default": 52
+    },
+    "marginTop": {
+      "type": "number",
+      "default": 0
+    },
+    "marginBottom": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "textdomain": "ai-zippy-child",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

@@ -74,7 +74,8 @@
           "art": "cake",
           "imageId": 0,
           "imageUrl": "",
-          "imageAlt": ""
+          "imageAlt": "",
+          "className": ""
         },
         {
           "title": "Just Because",
@@ -86,7 +87,8 @@
           "art": "gift",
           "imageId": 0,
           "imageUrl": "",
-          "imageAlt": ""
+          "imageAlt": "",
+          "className": ""
         },
         {
           "title": "Festive Gifting",
@@ -98,7 +100,8 @@
           "art": "sparkles",
           "imageId": 0,
           "imageUrl": "",
-          "imageAlt": ""
+          "imageAlt": "",
+          "className": ""
         },
         {
           "title": "No time?",
@@ -110,7 +113,8 @@
           "art": "present",
           "imageId": 0,
           "imageUrl": "",
-          "imageAlt": ""
+          "imageAlt": "",
+          "className": ""
         },
         {
           "title": "Baby Shower",
@@ -122,7 +126,8 @@
           "art": "balloons",
           "imageId": 0,
           "imageUrl": "",
-          "imageAlt": ""
+          "imageAlt": "",
+          "className": ""
         },
         {
           "title": "1st Month",
@@ -134,7 +139,8 @@
           "art": "cupcake",
           "imageId": 0,
           "imageUrl": "",
-          "imageAlt": ""
+          "imageAlt": "",
+          "className": ""
         },
         {
           "title": "Graduation",
@@ -146,7 +152,8 @@
           "art": "hat",
           "imageId": 0,
           "imageUrl": "",
-          "imageAlt": ""
+          "imageAlt": "",
+          "className": ""
         }
       ]
     }

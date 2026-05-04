@@ -1,0 +1,113 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/terms-conditions",
+	"version": "1.0.0",
+	"title": "Terms & Conditions",
+	"category": "ai-zippy-page",
+	"icon": "text-page",
+	"description": "Editable Terms & Conditions page content.",
+	"keywords": ["terms", "conditions", "legal", "policy"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"eyebrow": { "type": "string", "default": "Tom & Stefanie" },
+		"heading": { "type": "string", "default": "Terms & Conditions" },
+		"description": {
+			"type": "string",
+			"default": "Please read these terms carefully before browsing or purchasing from our website."
+		},
+		"backgroundColor": { "type": "string", "default": "#f8f7f4" },
+		"textColor": { "type": "string", "default": "#000000" },
+		"mutedColor": { "type": "string", "default": "#8f8a83" },
+		"cardBackgroundColor": { "type": "string", "default": "#ffffff" },
+		"accentColor": { "type": "string", "default": "#f16a6c" },
+		"maxWidth": { "type": "number", "default": 1180 },
+		"paddingTop": { "type": "number", "default": 72 },
+		"paddingBottom": { "type": "number", "default": 86 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 },
+		"sections": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Overview",
+					"body": "Welcome to Tom & Stefanie. By accessing or purchasing from our website, you agree to be bound by these Terms & Conditions.\nThese terms apply to all users of the site, including customers browsing, purchasing online, or visiting our retail stores.",
+					"items": []
+				},
+				{
+					"title": "Products & Availability",
+					"body": "Tom & Stefanie offers a curated range of baby and children products, including both imported brands and in-house selections.",
+					"items": [
+						"All products are subject to availability",
+						"Product images are for illustration purposes and may differ slightly",
+						"We reserve the right to update product details and pricing without prior notice"
+					]
+				},
+				{
+					"title": "Orders & Payments",
+					"body": "",
+					"items": [
+						"All orders are subject to confirmation and acceptance",
+						"Prices are listed in SGD",
+						"Orders may be cancelled if items are out of stock or due to unforeseen issues",
+						"Payment methods include Credit / Debit Cards, PayNow / PayLah, and other methods displayed at checkout"
+					]
+				},
+				{
+					"title": "Delivery",
+					"body": "We currently offer delivery within Singapore.",
+					"items": [
+						"Delivery timelines provided are estimates only",
+						"Delays may occur due to logistics, peak periods, or unforeseen circumstances",
+						"Customers are responsible for providing accurate delivery details",
+						"Self-collection may be introduced in the future"
+					]
+				},
+				{
+					"title": "Returns & Exchanges",
+					"body": "Please refer to our Return & Exchange Policy for full details.",
+					"items": []
+				},
+				{
+					"title": "Product Safety",
+					"body": "Tom & Stefanie shall not be liable for misuse of products.",
+					"items": [
+						"All products are sourced from trusted suppliers",
+						"Adult supervision is recommended where applicable",
+						"Customers should follow product instructions and age recommendations"
+					]
+				},
+				{
+					"title": "Intellectual Property",
+					"body": "All website content including images, branding, and text are owned by Tom & Stefanie and may not be reproduced without permission.",
+					"items": []
+				},
+				{
+					"title": "Limitation of Liability",
+					"body": "We are not liable for any indirect or consequential damages arising from the use of our products or website.",
+					"items": []
+				},
+				{
+					"title": "Governing Law",
+					"body": "These Terms are governed by the laws of Singapore.",
+					"items": []
+				},
+				{
+					"title": "Contact",
+					"body": "For enquiries, customers may contact us via WhatsApp, email, or visit our stores.",
+					"items": []
+				}
+			]
+		}
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

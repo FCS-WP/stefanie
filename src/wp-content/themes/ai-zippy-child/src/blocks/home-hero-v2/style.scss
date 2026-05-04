@@ -249,6 +249,19 @@
     z-index: 1;
   }
 
+  .home-hero-v2__card.card-3 img{
+      max-width: 170px;
+      right: 0;
+      top: 0;
+      transform: rotate(30deg);
+  }
+
+   .home-hero-v2__card.card-2 img{
+      width: 80px;
+      top: 0;
+      right: 50px;
+  }
+
   .home-hero-v2__art--gift {
     height: clamp(150px, 14.2vw, 218px);
     right: clamp(36px, 4vw, 76px);

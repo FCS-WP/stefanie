@@ -121,7 +121,7 @@
     color: inherit;
     font-family: var(--home-occasions-font);
     font-size: clamp(20px, 1.55vw, 31px);
-    font-weight: 800;
+    font-weight: 600;
     letter-spacing: 0;
     line-height: 1.05;
     margin: 0 0 3px;
@@ -130,7 +130,7 @@
   .home-occasions__card-description {
     color: inherit;
     font-size: clamp(12px, 0.9vw, 18px);
-    font-weight: 500;
+    font-weight: 300;
     line-height: 1.15;
     margin: 0 0 10px;
     max-width: 22ch;
@@ -400,10 +400,6 @@
 
     .home-occasions__header {
       text-align: left;
-    }
-
-    .home-occasions__grid {
-      grid-template-columns: 1fr;
     }
 
     .home-occasions__card,

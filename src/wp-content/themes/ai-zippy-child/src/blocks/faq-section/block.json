@@ -1,0 +1,69 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ai-zippy-child/faq-section",
+	"version": "1.0.0",
+	"title": "FAQ Section",
+	"category": "ai-zippy-page",
+	"icon": "editor-help",
+	"description": "Editable FAQ accordion section with multiple topics.",
+	"keywords": ["faq", "accordion", "questions"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"attributes": {
+		"align": { "type": "string", "default": "wide" },
+		"heading": { "type": "string", "default": "Frequently Asked Questions" },
+		"backgroundColor": { "type": "string", "default": "#f8f7f4" },
+		"textColor": { "type": "string", "default": "#000000" },
+		"answerColor": { "type": "string", "default": "#8f8a83" },
+		"cardBackgroundColor": { "type": "string", "default": "#ffffff" },
+		"accentColor": { "type": "string", "default": "#f16a6c" },
+		"maxWidth": { "type": "number", "default": 1735 },
+		"columns": { "type": "number", "default": 2 },
+		"gap": { "type": "number", "default": 34 },
+		"paddingTop": { "type": "number", "default": 56 },
+		"paddingBottom": { "type": "number", "default": 64 },
+		"marginTop": { "type": "number", "default": 0 },
+		"marginBottom": { "type": "number", "default": 0 },
+		"topics": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Delivery",
+					"items": [
+						{
+							"question": "Do you deliver islandwide?",
+							"answer": "Yes - islandwide delivery for all online orders. Free delivery for orders above $60."
+						},
+						{
+							"question": "How long does delivery take?",
+							"answer": "Orders are processed within 1-3 working days. JNT courier for most deliveries."
+						}
+					]
+				},
+				{
+					"title": "Orders & Products",
+					"items": [
+						{
+							"question": "What's your return policy?",
+							"answer": "Items can be returned/exchanged within 7 days of receipt, if unopened and in original condition."
+						},
+						{
+							"question": "Are your products safe for kids?",
+							"answer": "All products are sourced from trusted suppliers. We recommend following stated age guidelines."
+						}
+					]
+				}
+			]
+		}
+	},
+	"textdomain": "ai-zippy-child",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

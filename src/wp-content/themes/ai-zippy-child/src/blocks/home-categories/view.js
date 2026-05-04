@@ -2,7 +2,7 @@ const getSlidesToShow = (block) => {
 	const width = window.innerWidth;
 
 	if (width <= 640) {
-		return Number(block.dataset.mobileSlides) || 1;
+		return Number(block.dataset.mobileSlides) || 2;
 	}
 
 	if (width <= 980) {

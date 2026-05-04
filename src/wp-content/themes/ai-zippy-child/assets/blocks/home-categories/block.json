@@ -75,7 +75,7 @@
     },
     "mobileSlidesToShow": {
       "type": "number",
-      "default": 1
+      "default": 2
     },
     "showArrows": {
       "type": "boolean",

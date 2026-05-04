@@ -1,0 +1,30 @@
+.wp-block-ai-zippy-child-faq-cta {
+  .block-editor-rich-text__editable {
+    color: inherit;
+  }
+}
+
+.faq-cta-editor__color {
+  border-top: 1px solid #e7e1d8;
+  margin-top: 14px;
+  padding-top: 14px;
+}
+
+.faq-cta-editor__media {
+  border-top: 1px solid #e7e1d8;
+  margin-top: 16px;
+  padding-top: 16px;
+
+  img {
+    border-radius: 999px;
+    display: block;
+    height: 80px;
+    margin: 0 0 12px;
+    object-fit: cover;
+    width: 80px;
+  }
+
+  .components-button + .components-button {
+    margin-left: 10px;
+  }
+}
