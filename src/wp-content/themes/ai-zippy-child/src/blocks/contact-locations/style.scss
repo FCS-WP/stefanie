@@ -23,6 +23,7 @@
   }
 
   .contact-locations__grid {
+    margin-bottom: 50px;
     display: grid;
     gap: clamp(18px, 1.6vw, 28px);
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -31,10 +32,10 @@
   .contact-locations__card {
     background: #fff;
     border: 1px solid rgba(44, 58, 111, 0.12);
-    border-top: 8px solid #d1ab47;
     box-shadow: 0 14px 34px rgba(44, 58, 111, 0.08);
     min-height: 220px;
     padding: clamp(28px, 2vw, 40px);
+    border-radius: clamp(28px, 2.55vw, 44px);
   }
 
   .contact-locations__name {
@@ -80,6 +81,7 @@
   }
 
   .contact-locations__note {
+    display: none;
     background: #fff5d8;
     border: 2px dashed #d1ab47;
     color: #9a7322;
