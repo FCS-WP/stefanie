@@ -5,11 +5,18 @@ function formatPrice(priceStr, decimals = 2) {
 	return `$${num.toFixed(decimals)}`;
 }
 
+function decodeHtmlEntities(value = "") {
+	const textarea = document.createElement("textarea");
+	textarea.innerHTML = value;
+	return textarea.value;
+}
+
 export default function CartRow({ item, busy, onUpdateQty, onRemove }) {
 	const img = item.images?.[0];
-	const name = item.name;
+	const name = decodeHtmlEntities(item.name);
 	const variation = item.variation
 		?.map((v) => v.value)
+		.map(decodeHtmlEntities)
 		.filter(Boolean)
 		.join(", ");
 	const lineTotal = formatPrice(item.totals.line_total);
