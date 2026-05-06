@@ -214,6 +214,7 @@ function ai_zippy_child_render_customize_categories_admin_page(): void
                         <tr>
                             <th><?php esc_html_e('Category', 'ai-zippy-child'); ?></th>
                             <th><?php esc_html_e('Slug', 'ai-zippy-child'); ?></th>
+                            <th><?php esc_html_e('Category URL', 'ai-zippy-child'); ?></th>
                             <th><?php esc_html_e('Products', 'ai-zippy-child'); ?></th>
                             <th><?php esc_html_e('Parent Category', 'ai-zippy-child'); ?></th>
                         </tr>
@@ -224,6 +225,8 @@ function ai_zippy_child_render_customize_categories_admin_page(): void
                             $term_id      = (int) $term->term_id;
                             $children     = get_term_children($term_id, 'product_cat');
                             $children     = is_wp_error($children) ? [] : array_map('absint', $children);
+                            $term_link    = get_term_link($term);
+                            $term_url     = is_wp_error($term_link) ? '' : $term_link;
                             $search_value = strtolower($term->name . ' ' . $term->slug);
                             ?>
                             <tr data-category-row data-category-search-value="<?php echo esc_attr($search_value); ?>">
@@ -231,6 +234,15 @@ function ai_zippy_child_render_customize_categories_admin_page(): void
                                     <strong><?php echo esc_html(ai_zippy_child_category_parent_label($term, $terms_by_id)); ?></strong>
                                 </td>
                                 <td><code><?php echo esc_html($term->slug); ?></code></td>
+                                <td>
+                                    <?php if ($term_url) : ?>
+                                        <a href="<?php echo esc_url($term_url); ?>" target="_blank" rel="noopener noreferrer">
+                                            <?php echo esc_html($term_url); ?>
+                                        </a>
+                                    <?php else : ?>
+                                        &mdash;
+                                    <?php endif; ?>
+                                </td>
                                 <td><?php echo esc_html((string) $term->count); ?></td>
                                 <td>
                                     <select name="category_parent[<?php echo esc_attr((string) $term_id); ?>]">
